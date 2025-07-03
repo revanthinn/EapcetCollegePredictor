@@ -1,23 +1,24 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta name="description" content="Use our free EAPCET college predictor to check which colleges you can get into based on your rank, category, and preferences.">
-    <link rel="canonical" href="https://eapcet-college-predictor.vercel.app/" />
-    <meta property="og:title" content="EAPCET College Predictor 2025">
-    <meta property="og:description" content="Check eligible colleges using your EAPCET rank.">
-    <meta property="og:url" content="https://eapcet-college-predictor.vercel.app/">
-    <meta property="og:type" content="website">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EAPCET College Predictor</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='%238851F7' d='M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z'/></svg>">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+<meta content="Use our free EAPCET college predictor to check which colleges you can get into based on your rank, category, and preferences." name="description"/>
+<link href="https://eapcet-college-predictor.vercel.app/" rel="canonical"/>
+<meta content="EAPCET College Predictor 2025" property="og:title"/>
+<meta content="Check eligible colleges using your EAPCET rank." property="og:description"/>
+<meta content="https://eapcet-college-predictor.vercel.app/" property="og:url"/>
+<meta content="website" property="og:type"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EAPCET College Predictor</title>
+<link href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'&gt;&lt;path fill='%238851F7' d='M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z'/&gt;&lt;/svg&gt;" rel="icon" type="image/svg+xml"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script crossorigin="" src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin="" src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -25,8 +26,8 @@
   gtag('config', 'G-F6BHQX695T');
 </script>
 <!-- Fonts, Bootstrap, Firebase, Popup-js, and Popup CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
 <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
@@ -211,24 +212,46 @@
     margin: 0;
     vertical-align: middle;
   }
+  /* 1. Remove white background around college cards on mobile, 2. Black result container full width, 3. College cards responsive */
+  @media (max-width: 640px) {
+    /* Black result container full width */
+    .college-results-mobile-container {
+      background: #111;
+      border-radius: 0;
+      box-shadow: none;
+      width: 100vw !important;
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+      box-sizing: border-box !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+    /* College cards: full width, no border, responsive, but keep original colors */
+    .college-card-mobile {
+      border-radius: 1rem !important;
+      border: none !important;
+      width: 100% !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding-left: 0.5rem !important;
+      padding-right: 0.5rem !important;
+      max-width: 100vw !important;
+      box-sizing: border-box !important;
+    }
+  }
 </style>
 </head>
 <body class="min-h-screen w-full" style="background:#B889F9; color:#8851F7;">
-    <div class="w-full flex justify-between items-center gap-2 px-4 py-2" style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.85);backdrop-filter:blur(6px);">
-        <span class="font-extrabold text-xl sm:text-2xl" style="color:#8851F7;letter-spacing:0.5px;">EAPCET Predictor</span>
-        <a
-            href="/App/blog.html"
-            class="inline-block bg-[#8851F7] hover:bg-[#B889F9] text-white font-bold px-5 py-2 rounded-full shadow transition"
-            style="text-decoration: none;"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
+<div class="w-full flex justify-between items-center gap-2 px-4 py-2" style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.85);backdrop-filter:blur(6px);">
+<span class="font-extrabold text-xl sm:text-2xl" style="color:#8851F7;letter-spacing:0.5px;">EAPCET Predictor</span>
+<a class="inline-block bg-[#8851F7] hover:bg-[#B889F9] text-white font-bold px-5 py-2 rounded-full shadow transition" href="/blog.html" rel="noopener noreferrer" style="text-decoration: none;" target="_blank">
             Blog
         </a>
-    </div>
-    <div id="root"></div>
-    
-    <script type="text/babel">
+</div>
+<div id="root"></div>
+<script type="text/babel">
         const { useState, useEffect } = React;
         
         const genders = [
@@ -737,23 +760,19 @@
                                         </div>
                                         {form.place && (
                                             <div className="flex items-center bg-yellow-400 text-black px-4 py-2 rounded-md font-semibold text-xs sm:text-base">
-                                                <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                                                <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
                                                         clipRule="evenodd"
-                                                    />
-                                                </svg>
+                                                    /></svg>
                                                 {form.place}
                                             </div>
                                         )}
                                     </div>
                                             {/* Mobile: Cards + System Guide, full width, no horizontal scroll */}
-                                            <div className="block sm:hidden w-full px-0">
+                                            <div className="block sm:hidden w-full px-0 college-results-mobile-container">
                                                 {paginatedResults.map((row, idx) => (
                                                     <div
                                                         key={idx}
-                                                        className="bg-[#8851F7] rounded-xl shadow-md p-4 mb-4 flex flex-col gap-2 border border-[#8851F7]"
+                                                        className="bg-[#8851F7] rounded-xl shadow-md p-4 mb-4 flex flex-col gap-2 border border-[#8851F7] college-card-mobile"
                                                     >
                                                         <div className="flex items-center gap-2 mb-1 flex-wrap">
                                                             <span className="font-extrabold text-lg sm:text-xl text-[#232e5c] tracking-wide">{row["Institute Code"]}</span>
@@ -986,32 +1005,32 @@
 
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
-    <div id="userPopupOverlay">
-        <form id="userForm" autocomplete="off">
-          <h2>Enter Details</h2>
-          <div class="form-subheading">Please enter your details to continue</div>
-          <div class="userForm-flex-row">
-            <div class="form-floating">
-              <input type="text" id="name" class="form-control" placeholder="" required autocomplete="off">
-              <label for="name">Student Name</label>
-            </div>
-            <div class="form-floating">
-              <input type="text" id="number" class="form-control" placeholder="" required autocomplete="off">
-              <label for="number">Phone Number</label>
-            </div>
-            <div class="form-floating">
-              <input type="text" id="place" class="form-control" placeholder="" required autocomplete="off">
-              <label for="place">Place</label>
-            </div>
-          </div>
-          <div class="userForm-checkbox-row">
-            <input type="checkbox" id="termsCheck" required>
-            <label for="termsCheck" style="margin:0; color:#FFD700; font-size:0.98rem;">I agree to the <a href="#" style="color:#FFD700;text-decoration:underline;">Terms and Conditions</a></label>
-          </div>
-          <button type="submit" class="submit-btn" id="userFormSubmitBtn" disabled>Submit</button>
-        </form>
-      </div>
-      <script>
+<div id="userPopupOverlay">
+<form autocomplete="off" id="userForm">
+<h2>Enter Details</h2>
+<div class="form-subheading">Please enter your details to continue</div>
+<div class="userForm-flex-row">
+<div class="form-floating">
+<input autocomplete="off" class="form-control" id="name" placeholder="" required="" type="text"/>
+<label for="name">Student Name</label>
+</div>
+<div class="form-floating">
+<input autocomplete="off" class="form-control" id="number" placeholder="" required="" type="text"/>
+<label for="number">Phone Number</label>
+</div>
+<div class="form-floating">
+<input autocomplete="off" class="form-control" id="place" placeholder="" required="" type="text"/>
+<label for="place">Place</label>
+</div>
+</div>
+<div class="userForm-checkbox-row">
+<input id="termsCheck" required="" type="checkbox"/>
+<label for="termsCheck" style="margin:0; color:#FFD700; font-size:0.98rem;">I agree to the <a href="#" style="color:#FFD700;text-decoration:underline;">Terms and Conditions</a></label>
+</div>
+<button class="submit-btn" disabled="" id="userFormSubmitBtn" type="submit">Submit</button>
+</form>
+</div>
+<script>
         // 🔧 Firebase config (Replace with your own)
         const firebaseConfig = {
           apiKey: "AIzaSyC-rdXiAoJg16m7CC_lIWmKpJVsqIOZVHk",
