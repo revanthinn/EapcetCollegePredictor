@@ -57,6 +57,11 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
     
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         /* Modern CSS Reset */
         *, *::before, *::after {
@@ -67,64 +72,137 @@
 
         /* CSS Custom Properties */
         :root {
-            --primary-gradient: linear-gradient(135deg, #8f5cff 0%, #a084ee 100%);
-            --secondary-gradient: linear-gradient(135deg, #c4b5fd 0%, #a084ee 100%);
-            --accent-gradient: linear-gradient(135deg, #f3e8ff 0%, #c4b5fd 100%);
-            --dark-gradient: linear-gradient(135deg, #4b2067 0%, #8f5cff 100%);
-            --light-gradient: linear-gradient(135deg, #f8f5ff 0%, #f3e8ff 100%);
+            /* Color System */
+            --primary-50: #f8f5ff;
+            --primary-100: #f3e8ff;
+            --primary-200: #e9d5ff;
+            --primary-300: #d8b4fe;
+            --primary-400: #c084fc;
+            --primary-500: #a855f7;
+            --primary-600: #9333ea;
+            --primary-700: #7c3aed;
+            --primary-800: #6b21a8;
+            --primary-900: #581c87;
             
-            --text-primary: #2d1a47;
-            --text-secondary: #4a3a6a;
-            --text-light: #7c6fa6;
-            --bg-primary: #fff;
-            --bg-secondary: #f8f5ff;
-            --bg-accent: #f3e8ff;
+            --secondary-50: #faf7ff;
+            --secondary-100: #f4edff;
+            --secondary-200: #e9d8ff;
+            --secondary-300: #d6bbff;
+            --secondary-400: #b794f6;
+            --secondary-500: #9f7aea;
+            --secondary-600: #805ad5;
+            --secondary-700: #6b46c1;
+            --secondary-800: #553c9a;
+            --secondary-900: #44337a;
             
-            --shadow-sm: 0 1px 3px 0 rgba(143, 92, 255, 0.05), 0 1px 2px 0 rgba(143, 92, 255, 0.03);
-            --shadow-md: 0 4px 6px -1px rgba(143, 92, 255, 0.08), 0 2px 4px -1px rgba(143, 92, 255, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(143, 92, 255, 0.12), 0 4px 6px -2px rgba(143, 92, 255, 0.08);
-            --shadow-xl: 0 20px 25px -5px rgba(143, 92, 255, 0.16), 0 10px 10px -5px rgba(143, 92, 255, 0.10);
+            --neutral-50: #fafafa;
+            --neutral-100: #f5f5f5;
+            --neutral-200: #e5e5e5;
+            --neutral-300: #d4d4d4;
+            --neutral-400: #a3a3a3;
+            --neutral-500: #737373;
+            --neutral-600: #525252;
+            --neutral-700: #404040;
+            --neutral-800: #262626;
+            --neutral-900: #171717;
             
-            --border-radius: 12px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --success-500: #10b981;
+            --warning-500: #f59e0b;
+            --error-500: #ef4444;
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, var(--primary-600) 0%, var(--secondary-600) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--primary-100) 0%, var(--secondary-100) 100%);
+            --gradient-accent: linear-gradient(135deg, var(--primary-50) 0%, var(--secondary-50) 100%);
+            --gradient-dark: linear-gradient(135deg, var(--primary-900) 0%, var(--secondary-900) 100%);
+            
+            /* Shadows */
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            --space-24: 6rem;
+            --space-32: 8rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            --radius-full: 9999px;
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* Base Styles */
         html {
             scroll-behavior: smooth;
             font-size: 16px;
+            line-height: 1.5;
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            background: var(--bg-primary);
+            color: var(--neutral-900);
+            background: var(--neutral-50);
             overflow-x: hidden;
-            opacity: 1; /* Ensure body is visible by default */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Typography */
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-        }
+        /* Typography Scale */
+        .text-xs { font-size: 0.75rem; line-height: 1rem; }
+        .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+        .text-base { font-size: 1rem; line-height: 1.5rem; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+        .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+        .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+        .text-5xl { font-size: 3rem; line-height: 1; }
+        .text-6xl { font-size: 3.75rem; line-height: 1; }
+        .text-7xl { font-size: 4.5rem; line-height: 1; }
 
-        h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
-        h2 { font-size: clamp(2rem, 4vw, 3rem); }
-        h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
-
-        p {
-            margin-bottom: 1rem;
-            color: var(--text-secondary);
-        }
+        /* Font Weights */
+        .font-light { font-weight: 300; }
+        .font-normal { font-weight: 400; }
+        .font-medium { font-weight: 500; }
+        .font-semibold { font-weight: 600; }
+        .font-bold { font-weight: 700; }
+        .font-extrabold { font-weight: 800; }
 
         /* Container */
         .container {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 0 var(--space-4);
+        }
+
+        @media (min-width: 640px) {
+            .container { padding: 0 var(--space-6); }
+        }
+
+        @media (min-width: 1024px) {
+            .container { padding: 0 var(--space-8); }
         }
 
         /* Header */
@@ -133,35 +211,121 @@
             top: 0;
             left: 0;
             right: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--neutral-200);
+            z-index: 50;
+            transition: var(--transition-normal);
+        }
+
+        .header.scrolled {
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
         }
 
         .nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
+            padding: var(--space-4) 0;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            font-size: 1.5rem;
+            font-size: var(--space-6);
             font-weight: 700;
-            background: var(--primary-gradient);
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-decoration: none;
         }
 
-        .logo::before {
-            content: '🎓';
-            margin-right: 0.5rem;
-            -webkit-text-fill-color: initial;
+        .nav-links {
+            display: none;
+            gap: var(--space-8);
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .nav-link {
+            color: var(--neutral-700);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-600);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: var(--transition-fast);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-button {
+            display: block;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: var(--space-2);
+            border-radius: var(--radius-md);
+            transition: var(--transition-fast);
+        }
+
+        @media (min-width: 768px) {
+            .mobile-menu-button {
+                display: none;
+            }
+        }
+
+        .mobile-menu-button:hover {
+            background: var(--neutral-100);
+        }
+
+        .mobile-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid var(--neutral-200);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-100%);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-normal);
+        }
+
+        .mobile-menu.open {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            padding: var(--space-4);
+            gap: var(--space-4);
         }
 
         /* Hero Section */
@@ -169,9 +333,10 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            background: var(--primary-gradient);
+            background: var(--gradient-primary);
             position: relative;
             overflow: hidden;
+            padding-top: 80px;
         }
 
         .hero::before {
@@ -190,245 +355,373 @@
             z-index: 2;
             text-align: center;
             color: white;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         .hero-badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            margin-bottom: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: rgba(255, 255, 255, 0.15);
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-full);
+            margin-bottom: var(--space-8);
             font-weight: 600;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             animation: slideInUp 0.8s ease-out;
         }
 
         .hero h1 {
-            margin-bottom: 1.5rem;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: var(--space-6);
             animation: slideInUp 0.8s ease-out 0.2s both;
         }
 
         .hero-subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            opacity: 0.9;
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 600;
+            margin-bottom: var(--space-4);
+            opacity: 0.95;
             animation: slideInUp 0.8s ease-out 0.4s both;
         }
 
         .hero-description {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            margin-bottom: 3rem;
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            opacity: 0.85;
+            margin-bottom: var(--space-12);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
             animation: slideInUp 0.8s ease-out 0.6s both;
         }
 
         .cta-button {
-            display: inline-block;
-            background: linear-gradient(90deg, #8f5cff, #a084ee) !important;
-            color: #fff !important;
-            padding: 1rem 2.5rem;
-            border-radius: var(--border-radius);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: white;
+            color: var(--primary-700);
+            padding: var(--space-4) var(--space-8);
+            border-radius: var(--radius-xl);
             text-decoration: none;
             font-weight: 600;
-            font-size: 1.1rem;
-            box-shadow: var(--shadow-lg);
-            transition: var(--transition);
+            font-size: var(--space-5);
+            box-shadow: var(--shadow-xl);
+            transition: var(--transition-normal);
             animation: slideInUp 0.8s ease-out 0.8s both;
         }
 
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-xl);
+            box-shadow: var(--shadow-2xl);
+            background: var(--neutral-50);
         }
 
         /* Section Styles */
         .section {
-            padding: 5rem 0;
+            padding: var(--space-24) 0;
             position: relative;
         }
 
-        .section:nth-child(even) {
-            background: var(--bg-secondary);
+        .section-alt {
+            background: white;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: var(--space-20);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .section-title {
-            background: var(--primary-gradient);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 1rem;
+            margin-bottom: var(--space-6);
         }
 
         .section-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-light);
-            max-width: 600px;
-            margin: 0 auto;
+            font-size: clamp(1.125rem, 2vw, 1.375rem);
+            color: var(--neutral-600);
+            line-height: 1.6;
         }
 
         /* Card Styles */
         .card {
-            background: var(--bg-primary);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--neutral-200);
+            transition: var(--transition-normal);
             height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: var(--transition-normal);
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             box-shadow: var(--shadow-xl);
+            border-color: var(--primary-200);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
         }
 
         .card-gradient {
-            background: var(--light-gradient);
-            color: var(--text-primary);
+            background: var(--gradient-secondary);
+            border: 1px solid var(--primary-200);
         }
 
         .card-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-xl);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            background: var(--accent-gradient);
-            color: #8f5cff;
+            font-size: 1.75rem;
+            margin-bottom: var(--space-6);
+            background: var(--gradient-secondary);
+            color: var(--primary-700);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card h3 {
+            font-size: var(--space-6);
+            font-weight: 700;
+            margin-bottom: var(--space-4);
+            color: var(--neutral-900);
+        }
+
+        .card p {
+            color: var(--neutral-600);
+            line-height: 1.6;
         }
 
         /* Grid Layouts */
         .grid {
             display: grid;
-            gap: 2rem;
+            gap: var(--space-8);
         }
 
-        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-        .grid-4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+        .grid-1 { grid-template-columns: 1fr; }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .grid-4 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
 
         /* Feature List */
         .feature-list {
             list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
         }
 
         .feature-item {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: var(--border-radius);
-            transition: var(--transition);
+            gap: var(--space-4);
+            padding: var(--space-4);
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: var(--radius-lg);
+            transition: var(--transition-fast);
+            border: 1px solid transparent;
         }
 
         .feature-item:hover {
-            background: rgba(255, 255, 255, 0.8);
-            transform: translateX(5px);
+            background: white;
+            border-color: var(--primary-200);
+            transform: translateX(4px);
         }
 
         .feature-icon {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: var(--secondary-gradient);
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-md);
+            background: var(--gradient-primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 1rem;
             flex-shrink: 0;
             color: white;
-            font-size: 0.8rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .feature-content h4 {
+            font-weight: 600;
+            margin-bottom: var(--space-1);
+            color: var(--neutral-900);
+        }
+
+        .feature-content p {
+            color: var(--neutral-600);
+            font-size: 0.875rem;
+            line-height: 1.5;
         }
 
         /* Process Steps */
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-6);
+        }
+
         .process-step {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: var(--bg-primary);
-            border-radius: var(--border-radius);
+            gap: var(--space-6);
+            padding: var(--space-6);
+            background: white;
+            border-radius: var(--radius-xl);
             box-shadow: var(--shadow-sm);
-            transition: var(--transition);
+            border: 1px solid var(--neutral-200);
+            transition: var(--transition-normal);
         }
 
         .process-step:hover {
             box-shadow: var(--shadow-md);
             transform: translateY(-2px);
+            border-color: var(--primary-200);
         }
 
         .step-number {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--primary-gradient);
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-full);
+            background: var(--gradient-primary);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 1.2rem;
-            margin-right: 1.5rem;
+            font-size: var(--space-5);
             flex-shrink: 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .step-content h4 {
+            font-size: var(--space-5);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            color: var(--neutral-900);
+        }
+
+        .step-content p {
+            color: var(--neutral-600);
+            line-height: 1.6;
         }
 
         /* Alert Box */
         .alert {
-            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
-            border: 1px solid #ffc107;
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            margin: 2rem 0;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 1px solid #f59e0b;
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+            margin: var(--space-8) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alert::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #f59e0b, #d97706);
         }
 
         .alert-icon {
             font-size: 2rem;
-            margin-bottom: 1rem;
+            margin-bottom: var(--space-4);
+        }
+
+        .alert h3 {
+            font-weight: 700;
+            margin-bottom: var(--space-4);
+            color: #92400e;
+        }
+
+        .alert p {
+            color: #92400e;
+            margin-bottom: var(--space-4);
+        }
+
+        .alert ul {
+            color: #92400e;
+            margin-left: var(--space-6);
+        }
+
+        .alert li {
+            margin-bottom: var(--space-2);
         }
 
         /* Stats Section */
         .stats {
-            background: var(--dark-gradient);
+            background: var(--gradient-dark);
             color: white;
             text-align: center;
         }
 
         .stat-item {
-            padding: 2rem;
+            padding: var(--space-8);
         }
 
         .stat-number {
-            font-size: 3rem;
-            font-weight: 700;
-            background: var(--accent-gradient);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             display: block;
+            margin-bottom: var(--space-2);
         }
 
         .stat-label {
-            font-size: 1.1rem;
+            font-size: var(--space-5);
             opacity: 0.9;
+            font-weight: 500;
         }
 
         /* Footer */
         .footer {
-            background: var(--dark-gradient) !important;
-            color: #fff !important;
+            background: var(--gradient-dark);
+            color: white;
             text-align: center;
-            padding: 3rem 0;
+            padding: var(--space-20) 0 var(--space-12);
         }
 
         .footer-content {
@@ -436,29 +729,56 @@
             margin: 0 auto;
         }
 
+        .footer .logo {
+            justify-content: center;
+            margin-bottom: var(--space-8);
+            font-size: 2rem;
+            color: white;
+            -webkit-text-fill-color: white;
+        }
+
+        .footer p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: var(--space-8);
+            line-height: 1.6;
+        }
+
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0;
+            gap: var(--space-4);
+            margin: var(--space-8) 0;
         }
 
         .social-link {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-full);
             background: rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             text-decoration: none;
-            transition: var(--transition);
+            transition: var(--transition-normal);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .social-link:hover {
-            background: var(--accent-gradient);
+            background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: var(--space-8);
+            margin-top: var(--space-8);
+        }
+
+        .footer-bottom p {
+            margin-bottom: var(--space-2);
         }
 
         /* Animations */
@@ -493,7 +813,7 @@
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(30px);
-            transition: all 0.6s ease-out;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .animate-on-scroll.animated {
@@ -504,26 +824,45 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero {
-                min-height: 80vh;
-                padding: 2rem 0;
+                min-height: 90vh;
+                padding: var(--space-8) 0;
             }
             
             .section {
-                padding: 3rem 0;
-            }
-            
-            .grid-2, .grid-3, .grid-4 {
-                grid-template-columns: 1fr;
+                padding: var(--space-16) 0;
             }
             
             .process-step {
                 flex-direction: column;
                 text-align: center;
+                gap: var(--space-4);
             }
             
-            .step-number {
-                margin-right: 0;
-                margin-bottom: 1rem;
+            .card {
+                padding: var(--space-6);
+            }
+            
+            .hero-badge {
+                padding: var(--space-2) var(--space-4);
+                font-size: 0.875rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 var(--space-4);
+            }
+            
+            .section {
+                padding: var(--space-12) 0;
+            }
+            
+            .section-header {
+                margin-bottom: var(--space-12);
+            }
+            
+            .card {
+                padding: var(--space-5);
             }
         }
 
@@ -536,9 +875,17 @@
             }
         }
 
+        /* Focus Styles */
+        .cta-button:focus,
+        .nav-link:focus,
+        .social-link:focus {
+            outline: 2px solid var(--primary-500);
+            outline-offset: 2px;
+        }
+
         /* Print Styles */
         @media print {
-            .header, .footer, .cta-button {
+            .header, .footer, .cta-button, .mobile-menu-button {
                 display: none;
             }
             
@@ -556,13 +903,32 @@
 </head>
 <body>
     <!-- Header -->
-    <header class="header">
+    <header class="header" id="header">
         <nav class="nav container">
-            <div class="logo">EAPCET Predictor</div>
-            <div>
-                <a href="#features" style="margin-right: 2rem; text-decoration: none; color: var(--text-primary);">Features</a>
-                <a href="#how-it-works" style="margin-right: 2rem; text-decoration: none; color: var(--text-primary);">How It Works</a>
-                <a href="#contact" style="text-decoration: none; color: var(--text-primary);">Contact</a>
+            <a href="#" class="logo">
+                🎓 EAPCET Predictor
+            </a>
+            
+            <div class="nav-links">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            
+            <button class="mobile-menu-button" id="mobile-menu-button" aria-label="Toggle mobile menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            
+            <div class="mobile-menu" id="mobile-menu">
+                <div class="mobile-nav-links">
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#how-it-works" class="nav-link">How It Works</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
             </div>
         </nav>
     </header>
@@ -571,13 +937,20 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-badge">🚀 AI-Powered Predictions</div>
-                <h1>Eapcet College Predictor tool</h1>
+                <div class="hero-badge">
+                    🚀 AI-Powered Predictions
+                </div>
+                <h1>EAPCET College Predictor Tool</h1>
                 <p class="hero-subtitle">Smart EAPCET College Predictions</p>
                 <p class="hero-description">
                     Discover your ideal engineering college with AI-powered predictions based on official Telangana EAPCET data. Get instant, personalized recommendations with 95% accuracy.
                 </p>
-                <a href="/App/index.html" class="cta-button">Start Predicting Now →</a>
+                <a href="/App/index.html" class="cta-button">
+                    Start Predicting Now
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m9 18 6-6-6-6"/>
+                    </svg>
+                </a>
             </div>
         </div>
     </section>
@@ -607,7 +980,7 @@
     </section>
 
     <!-- Introduction Section -->
-    <section class="section">
+    <section class="section section-alt">
         <div class="container">
             <div class="section-header animate-on-scroll">
                 <h2 class="section-title">What is EAPCET College Predictor?</h2>
@@ -648,30 +1021,30 @@
                     <ul class="feature-list">
                         <li class="feature-item">
                             <div class="feature-icon">✓</div>
-                            <div>
-                                <strong>EAPCET Rank</strong><br>
-                                Your official EAPCET examination rank
+                            <div class="feature-content">
+                                <h4>EAPCET Rank</h4>
+                                <p>Your official EAPCET examination rank</p>
                             </div>
                         </li>
                         <li class="feature-item">
                             <div class="feature-icon">✓</div>
-                            <div>
-                                <strong>Preferred Branch</strong><br>
-                                Engineering course/specialization preference
+                            <div class="feature-content">
+                                <h4>Preferred Branch</h4>
+                                <p>Engineering course/specialization preference</p>
                             </div>
                         </li>
                         <li class="feature-item">
                             <div class="feature-icon">✓</div>
-                            <div>
-                                <strong>Category & Gender</strong><br>
-                                For accurate quota-based predictions
+                            <div class="feature-content">
+                                <h4>Category & Gender</h4>
+                                <p>For accurate quota-based predictions</p>
                             </div>
                         </li>
                         <li class="feature-item">
                             <div class="feature-icon">✓</div>
-                            <div>
-                                <strong>Location Preference</strong><br>
-                                Optional geographic preferences
+                            <div class="feature-content">
+                                <h4>Location Preference</h4>
+                                <p>Optional geographic preferences</p>
                             </div>
                         </li>
                     </ul>
@@ -679,25 +1052,27 @@
                 
                 <div class="card animate-on-scroll">
                     <h3>⚙️ AI Processing</h3>
-                    <div class="process-step">
-                        <div class="step-number">1</div>
-                        <div>
-                            <h4>Data Collection</h4>
-                            <p>System gathers your inputs and cross-references with our comprehensive database</p>
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Data Collection</h4>
+                                <p>System gathers your inputs and cross-references with our comprehensive database</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">2</div>
-                        <div>
-                            <h4>AI Analysis</h4>
-                            <p>Advanced algorithms process data against historical admission patterns</p>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>AI Analysis</h4>
+                                <p>Advanced algorithms process data against historical admission patterns</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">3</div>
-                        <div>
-                            <h4>Smart Results</h4>
-                            <p>Personalized college recommendations with probability scores</p>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Smart Results</h4>
+                                <p>Personalized college recommendations with probability scores</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -706,7 +1081,7 @@
     </section>
 
     <!-- Features Section -->
-    <section class="section" id="features">
+    <section class="section section-alt" id="features">
         <div class="container">
             <div class="section-header animate-on-scroll">
                 <h2 class="section-title">Why Choose Our Predictor?</h2>
@@ -788,7 +1163,7 @@
     </section>
 
     <!-- How to Use Section -->
-    <section class="section">
+    <section class="section section-alt">
         <div class="container">
             <div class="section-header animate-on-scroll">
                 <h2 class="section-title">How to Use the Predictor</h2>
@@ -799,51 +1174,56 @@
             
             <div class="grid grid-2">
                 <div class="animate-on-scroll">
-                    <div class="process-step">
-                        <div class="step-number">1</div>
-                        <div>
-                            <h4>Access the Tool</h4>
-                            <p>Visit our predictor on any device - desktop, tablet, or mobile. No app download required.</p>
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Access the Tool</h4>
+                                <p>Visit our predictor on any device - desktop, tablet, or mobile. No app download required.</p>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="process-step">
-                        <div class="step-number">2</div>
-                        <div>
-                            <h4>Enter Your Details</h4>
-                            <p>Input your EAPCET rank, category, gender, and preferred engineering branch.</p>
+                        
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Enter Your Details</h4>
+                                <p>Input your EAPCET rank, category, gender, and preferred engineering branch.</p>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="process-step">
-                        <div class="step-number">3</div>
-                        <div>
-                            <h4>Set Preferences</h4>
-                            <p>Optionally specify location preferences and other criteria for targeted results.</p>
+                        
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Set Preferences</h4>
+                                <p>Optionally specify location preferences and other criteria for targeted results.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="animate-on-scroll">
-                    <div class="process-step">
-                        <div class="step-number">4</div>
-                        <div>
-                            <h4>Get Instant Predictions</h4>
-                            <p>Review your personalized college list with admission probability scores.</p>
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Get Instant Predictions</h4>
+                                <p>Review your personalized college list with admission probability scores.</p>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="process-step">
-                        <div class="step-number">5</div>
-                        <div>
-                            <h4>Plan Your Strategy</h4>
-                            <p>Use insights to create your college preference order for counseling sessions.</p>
+                        
+                        <div class="process-step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <h4>Plan Your Strategy</h4>
+                                <p>Use insights to create your college preference order for counseling sessions.</p>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="card card-gradient">
-                        <h4>💡 Pro Tip</h4>
-                        <p>Use our predictor multiple times with different preferences to explore all your options and create backup plans.</p>
+                        
+                        <div class="card card-gradient">
+                            <div class="card-icon">💡</div>
+                            <h3>Pro Tip</h3>
+                            <p>Use our predictor multiple times with different preferences to explore all your options and create backup plans.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -857,7 +1237,7 @@
                 <div class="alert-icon">⚠️</div>
                 <h3>Important Disclaimer</h3>
                 <p><strong>Please read carefully:</strong></p>
-                <ul style="margin-left: 2rem; margin-top: 1rem;">
+                <ul>
                     <li>Predictions are based on historical data and trends from previous years</li>
                     <li>This tool provides guidance only and does not guarantee seat allotment</li>
                     <li>Actual cutoffs may vary due to factors like seat availability and competition levels</li>
@@ -869,7 +1249,7 @@
     </section>
 
     <!-- About Developer Section -->
-    <section class="section">
+    <section class="section section-alt">
         <div class="container">
             <div class="section-header animate-on-scroll">
                 <h2 class="section-title">About the Developer</h2>
@@ -888,28 +1268,28 @@
                     students in their academic journey.
                 </p>
                 
-                <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
-                    <span style="background: var(--accent-gradient); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">Educational Technology</span>
-                    <span style="background: var(--secondary-gradient); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">Data Analytics</span>
-                    <span style="background: var(--primary-gradient); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">Student Support</span>
+                <div style="display: flex; justify-content: center; gap: var(--space-4); margin-top: var(--space-8); flex-wrap: wrap;">
+                    <span style="background: var(--gradient-secondary); color: var(--primary-700); padding: var(--space-2) var(--space-4); border-radius: var(--radius-full); font-size: 0.875rem; font-weight: 500;">Educational Technology</span>
+                    <span style="background: var(--gradient-secondary); color: var(--primary-700); padding: var(--space-2) var(--space-4); border-radius: var(--radius-full); font-size: 0.875rem; font-weight: 500;">Data Analytics</span>
+                    <span style="background: var(--gradient-secondary); color: var(--primary-700); padding: var(--space-2) var(--space-4); border-radius: var(--radius-full); font-size: 0.875rem; font-weight: 500;">Student Support</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Final CTA Section -->
-    <section class="section" id="predictor" style="background: var(--primary-gradient); color: white;">
+    <section class="section" style="background: var(--gradient-primary); color: white;">
         <div class="container">
             <div class="section-header animate-on-scroll">
-                <h2 style="color: white; margin-bottom: 1rem;">Ready to Find Your Perfect College?</h2>
-                <p style="color: rgba(255,255,255,0.9); font-size: 1.3rem; margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+                <h2 style="color: white; margin-bottom: var(--space-4);">Ready to Find Your Perfect College?</h2>
+                <p style="color: rgba(255,255,255,0.9); font-size: 1.25rem; margin-bottom: var(--space-12); max-width: 700px; margin-left: auto; margin-right: auto;">
                     Take the first step towards your engineering career. Get instant, personalized college recommendations 
                     based on your EAPCET rank and preferences.
                 </p>
-                <a href="/App/index.html" class="cta-button" style="background: white; color: var(--text-primary); font-size: 1.2rem; padding: 1.2rem 3rem;">
+                <a href="/App/index.html" class="cta-button" style="background: white; color: var(--primary-700); font-size: 1.25rem; padding: var(--space-5) var(--space-12);">
                     🚀 Start Predicting Now
                 </a>
-                <p style="color: rgba(255,255,255,0.8); margin-top: 1.5rem; font-size: 1rem;">
+                <p style="color: rgba(255,255,255,0.8); margin-top: var(--space-6); font-size: 1rem;">
                     ✅ Free Forever • ✅ Instant Results • ✅ No Registration Required
                 </p>
             </div>
@@ -920,11 +1300,11 @@
     <footer class="footer" id="contact">
         <div class="container">
             <div class="footer-content">
-                <div class="logo" style="justify-content: center; margin-bottom: 2rem; font-size: 2rem;">
+                <div class="logo">
                     EAPCET Predictor
                 </div>
                 
-                <p style="color: rgba(255,255,255,0.8); margin-bottom: 2rem;">
+                <p>
                     Empowering engineering aspirants with AI-powered college predictions. 
                     Built for students, by students.
                 </p>
@@ -935,11 +1315,11 @@
                     <a href="#" class="social-link" title="Help Center">❓</a>
                 </div>
                 
-                <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 2rem; margin-top: 2rem;">
-                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 0.5rem;">
+                <div class="footer-bottom">
+                    <p>
                         © 2025 EAPCET College Predictor. Built for educational purposes to support engineering aspirants.
                     </p>
-                    <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem; margin: 0;">
+                    <p style="color: rgba(255,255,255,0.6); font-size: 0.875rem;">
                         This tool is designed for guidance only. Always verify with official sources.
                     </p>
                 </div>
@@ -947,17 +1327,35 @@
         </div>
     </footer>
 
-    <!-- JavaScript for Scroll Animations -->
+    <!-- JavaScript -->
     <script>
+        // Mobile menu functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('.mobile-nav-links .nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+            });
+        });
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    const headerHeight = document.querySelector('.header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
                     });
                 }
             });
@@ -983,20 +1381,52 @@
         });
 
         // Header background on scroll
+        const header = document.getElementById('header');
         window.addEventListener('scroll', () => {
-            const header = document.querySelector('.header');
             if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
-                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+                header.classList.add('scrolled');
             } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.boxShadow = 'none';
+                header.classList.remove('scrolled');
             }
         });
 
-        // Simple fade-in effect that won't cause white screen
+        // Parallax effect for hero background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                const rate = scrolled * -0.5;
+                hero.style.transform = `translateY(${rate}px)`;
+            }
+        });
+
+        // Add loading animation
         document.addEventListener('DOMContentLoaded', () => {
             document.body.style.opacity = '1';
+            
+            // Stagger animation for cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Add smooth reveal animation for sections
+        const sections = document.querySelectorAll('.section');
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            sectionObserver.observe(section);
         });
     </script>
 </body>
