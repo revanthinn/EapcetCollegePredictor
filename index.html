@@ -1,1090 +1,848 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="description" content="Use our free EAPCET college predictor to check which colleges you can get into based on your rank, category, and preferences.">
-    <link rel="canonical" href="https://eapcet-college-predictor.vercel.app/" />
-    <meta property="og:title" content="EAPCET College Predictor 2025">
-    <meta property="og:description" content="Check eligible colleges using your EAPCET rank.">
-    <meta property="og:url" content="https://eapcet-college-predictor.vercel.app/">
-    <meta property="og:type" content="website">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EAPCET College Predictor</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='%238851F7' d='M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z'/></svg>">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-F6BHQX695T');
-</script>
-<!-- Fonts, Bootstrap, Firebase, Popup-js, and Popup CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;800&display=swap" rel="stylesheet">
-<script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore-compat.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
-<style>
-  body {
-    font-family: 'Urbanist', 'Poppins', 'Inter', 'Segoe UI', 'Roboto', Arial, sans-serif;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #ede9fe 0%, #f5f3ff 100%);
-    color: #4f378b;
-    overflow-x: hidden;
-  }
-  #userPopupOverlay {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    width: 100vw; height: 100vh;
-    background: rgba(184, 137, 249, 0.25);
-    backdrop-filter: blur(8px);
-    z-index: 9999;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: 4vh;
-  }
-  #userForm {
-    position: relative;
-    z-index: 2;
-    background: #111;
-    color: #fff;
-    border-radius: 1.5rem;
-    box-shadow: 0 8px 40px 0 #c4b5fd44, 0 1.5px 4px #a78bfa22;
-    width: fit-content;
-    min-width: 220px;
-    max-width: 100vw;
-    padding: 16px 24px 10px 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    border: 2.5px solid #FFD700;
-    border-image: none;
-    animation: none;
-  }
-  #userForm h2 {
-    margin-bottom: 8px;
-    font-weight: 800;
-    font-size: 2.1rem;
-    text-align: center;
-    color: #FFD700 !important;
-    background: none;
-    font-family: 'Urbanist', 'Poppins', 'Inter', 'Segoe UI', 'Roboto', Arial, sans-serif;
-  }
-  .form-subheading {
-    text-align: center;
-    color: #fff !important;
-    font-size: 1.08rem;
-    margin-bottom: 28px;
-    font-weight: 400;
-  }
-  .form-floating {
-    position: relative;
-    margin-bottom: 0;
-  }
-  .form-floating input {
-    padding: 20px 12px 10px 12px;
-    height: 48px;
-    font-size: 1rem;
-    background: #222;
-    color: #fff;
-    border: 1.5px solid #FFD700;
-    border-radius: 2.2rem;
-    outline: none;
-    box-sizing: border-box;
-  }
-  .form-floating label {
-    position: absolute;
-    top: 14px;
-    left: 22px;
-    z-index: 3;
-    color: #FFD700 !important;
-    font-size: 1.08rem;
-    pointer-events: none;
-    background: transparent;
-    transition: 0.2s cubic-bezier(.4,0,.2,1);
-    font-family: 'Urbanist', 'Poppins', 'Inter', 'Segoe UI', 'Roboto', Arial, sans-serif;
-  }
-  .form-floating input:focus + label,
-  .form-floating input:not(:placeholder-shown) + label {
-    top: -8px;
-    left: 18px;
-    font-size: 0.92rem;
-    color: #FFD700;
-    background: transparent;
-  }
-  .submit-btn {
-    width: 100%;
-    padding: 16px 0;
-    background: #FFD700;
-    color: #111;
-    font-size: 1.15rem;
-    font-weight: 800;
-    border: none;
-    border-radius: 2rem;
-    cursor: pointer;
-    box-shadow: 0 4px 24px 0 #FFD70044, 0 2px 12px #FFD70033;
-    transition: background 0.2s, color 0.2s, transform 0.13s, box-shadow 0.18s;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    letter-spacing: 0.7px;
-    text-shadow: none;
-    position: relative;
-    overflow: hidden;
-  }
-  .submit-btn:hover {
-    background: #FFC300;
-    color: #000;
-    transform: scale(1.045) translateY(-2px);
-    box-shadow: 0 8px 32px 0 #FFD70099, 0 2px 12px #FFD70033;
-    filter: brightness(1.08) saturate(1.2);
-  }
-  @media (max-width: 480px) {
-    #userForm {
-      padding: 18px 8px 14px 8px;
-      min-width: unset;
-      max-width: 98vw;
-    }
-    #userForm h2 {
-      font-size: 1.2rem;
-    }
-  }
-  body:has(#userPopupOverlay[style*='flex']) {
-    overflow: hidden;
-  }
-  .userForm-flex-row {
-    display: flex;
-    flex-direction: row;
-    gap: 18px;
-    margin-bottom: 18px;
-  }
-  .userForm-flex-row .form-floating {
-    flex: 1 1 0;
-    min-width: 0;
-  }
-  .userForm-flex-row input {
-    width: 100%;
-    min-width: 80px;
-    height: 48px;
-    font-size: 1rem;
-  }
-  @media (max-width: 600px) {
-    #userForm {
-      width: 98vw;
-      max-width: 98vw;
-      min-width: unset;
-      padding-left: 6px;
-      padding-right: 6px;
-    }
-    .userForm-flex-row {
-      flex-direction: column;
-      gap: 10px;
-    }
-    .userForm-flex-row .form-floating {
-      min-width: 0;
-    }
-  }
-  .userForm-checkbox-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 14px 0 0 0;
-    font-size: 0.98rem;
-    color: #fff;
-  }
-  .userForm-checkbox-row input[type="checkbox"] {
-    accent-color: #FFD700;
-    width: 1.1em;
-    height: 1.1em;
-    margin: 0;
-    vertical-align: middle;
-  }
-</style>
-</head>
-<body class="min-h-screen w-full" style="background:#B889F9; color:#8851F7;">
-    <div class="w-full flex justify-between items-center gap-2 px-4 py-2" style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.85);backdrop-filter:blur(6px);">
-        <span class="font-extrabold text-xl sm:text-2xl" style="color:#8851F7;letter-spacing:0.5px;">EAPCET Predictor</span>
-        <a
-            href="/blog.html"
-            class="inline-block bg-[#8851F7] hover:bg-[#B889F9] text-white font-bold px-5 py-2 rounded-full shadow transition"
-            style="text-decoration: none;"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Blog
-        </a>
-    </div>
-    <div id="root"></div>
+    <title>EAPCET College Predictor 2024 - AI-Powered Engineering College Predictions</title>
     
-    <script type="text/babel">
-        const { useState, useEffect } = React;
-        
-        const genders = [
-            { value: "Male", label: "Male" },
-            { value: "Female", label: "Female" },
-        ];
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Get instant EAPCET college predictions with our AI-powered tool. Free engineering college predictor using official Telangana EAPCET cutoff data.">
+    <meta name="keywords" content="EAPCET college predictor, engineering colleges Telangana, EAPCET cutoff 2024">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+    
+    <style>
+        /* Modern CSS Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-        const categories = ["OC", "BC-A", "BC-B", "BC-C", "BC-D", "BC-E", "SC", "ST", "EWS"];
+        /* CSS Custom Properties */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #8f5cff 0%, #a084ee 100%);
+            --secondary-gradient: linear-gradient(135deg, #c4b5fd 0%, #a084ee 100%);
+            --accent-gradient: linear-gradient(135deg, #f3e8ff 0%, #c4b5fd 100%);
+            --dark-gradient: linear-gradient(135deg, #4b2067 0%, #8f5cff 100%);
+            --light-gradient: linear-gradient(135deg, #f8f5ff 0%, #f3e8ff 100%);
+            
+            --text-primary: #2d1a47;
+            --text-secondary: #4a3a6a;
+            --text-light: #7c6fa6;
+            --bg-primary: #fff;
+            --bg-secondary: #f8f5ff;
+            --bg-accent: #f3e8ff;
+            
+            --shadow-sm: 0 1px 3px 0 rgba(143, 92, 255, 0.05), 0 1px 2px 0 rgba(143, 92, 255, 0.03);
+            --shadow-md: 0 4px 6px -1px rgba(143, 92, 255, 0.08), 0 2px 4px -1px rgba(143, 92, 255, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(143, 92, 255, 0.12), 0 4px 6px -2px rgba(143, 92, 255, 0.08);
+            --shadow-xl: 0 20px 25px -5px rgba(143, 92, 255, 0.16), 0 10px 10px -5px rgba(143, 92, 255, 0.10);
+            
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Success/Warning/Error Colors */
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --success-bg: #ecfdf5;
+            --warning-bg: #fffbeb;
+            --error-bg: #fef2f2;
+        }
 
-        function App() {
-            const [eapcetData, setEapcetData] = useState([]);
-            const [branches, setBranches] = useState([]);
-            const [places, setPlaces] = useState([]);
-            const [results, setResults] = useState([]);
-            const [loading, setLoading] = useState(false);
-            const [error, setError] = useState("");
-            const [dataLoaded, setDataLoaded] = useState(false);
-            const [showDisclaimer, setShowDisclaimer] = useState(true);
-            const [form, setForm] = useState({
-                rank: "",
-                branch: "",
-                category: "",
-                gender: "Male",
-                place: "",
-            });
-            const [currentPage, setCurrentPage] = useState(1);
-            const rowsPerPage = 10;
-            const [hasSearched, setHasSearched] = useState(false);
+        /* Base Styles */
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
 
-            // Function to calculate admission chances based on rank difference
-            const calculateAdmissionChances = (userRank, collegeRank) => {
-                // Calculate how much better the user's rank is compared to college closing rank
-                // If college closing rank is HIGHER than user rank, user has better chances
-                const rankDifference = collegeRank - userRank;
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        .header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .main {
+            padding: 2rem 0;
+            min-height: calc(100vh - 200px);
+        }
+
+        /* Form Styles */
+        .form-container {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 2rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .form-input, .form-select {
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #8f5cff;
+            box-shadow: 0 0 0 3px rgba(143, 92, 255, 0.1);
+        }
+
+        .predict-button {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .predict-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .predict-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Results Section */
+        .results-section {
+            margin-top: 2rem;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .results-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .results-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* College Cards - Mobile First Responsive Design */
+        .colleges-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: 1fr;
+        }
+
+        .college-card {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .college-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .college-card.high-chance {
+            border-left-color: var(--success-color);
+            background: linear-gradient(135deg, var(--success-bg) 0%, white 100%);
+        }
+
+        .college-card.medium-chance {
+            border-left-color: var(--warning-color);
+            background: linear-gradient(135deg, var(--warning-bg) 0%, white 100%);
+        }
+
+        .college-card.low-chance {
+            border-left-color: var(--error-color);
+            background: linear-gradient(135deg, var(--error-bg) 0%, white 100%);
+        }
+
+        /* Mobile-First College Card Header */
+        .college-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .college-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.3;
+            margin: 0;
+        }
+
+        .college-location {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .college-location::before {
+            content: '📍';
+            font-size: 0.8rem;
+        }
+
+        /* Probability Badge - Mobile Optimized */
+        .probability-badge {
+            align-self: flex-start;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .probability-badge.high {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .probability-badge.medium {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .probability-badge.low {
+            background: var(--error-color);
+            color: white;
+        }
+
+        /* College Details - Mobile Responsive */
+        .college-details {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            text-align: right;
+        }
+
+        /* Branch Badge */
+        .branch-badge {
+            background: var(--accent-gradient);
+            color: var(--text-primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        /* Loading and Empty States */
+        .loading-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-light);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #8f5cff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-light);
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Animations */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Tablet Responsive (768px and up) */
+        @media (min-width: 768px) {
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .colleges-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .college-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+            }
+
+            .college-details {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .detail-item {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+                padding: 0.75rem;
+                background: rgba(255, 255, 255, 0.5);
+                border-radius: 8px;
+                border-bottom: none;
+            }
+
+            .detail-value {
+                text-align: left;
+                margin-top: 0.25rem;
+            }
+        }
+
+        /* Desktop Responsive (1024px and up) */
+        @media (min-width: 1024px) {
+            .form-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .colleges-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+
+            .college-card {
+                padding: 2rem;
+            }
+
+            .college-details {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        /* Large Desktop (1200px and up) */
+        @media (min-width: 1200px) {
+            .colleges-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Mobile Specific Optimizations */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+                margin: 1rem 0;
+            }
+
+            .college-card {
+                padding: 1.25rem;
+            }
+
+            .college-name {
+                font-size: 1rem;
+            }
+
+            .probability-badge {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.8rem;
+                min-width: 70px;
+            }
+
+            .detail-label, .detail-value {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Focus styles for accessibility */
+        .college-card:focus-within {
+            outline: 2px solid #8f5cff;
+            outline-offset: 2px;
+        }
+
+        /* Print styles */
+        @media print {
+            .header {
+                background: none !important;
+                color: black !important;
+            }
+            
+            .college-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1>🎓 EAPCET College Predictor</h1>
+                <p>AI-Powered Engineering College Predictions for Telangana EAPCET 2024</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Prediction Form -->
+            <div class="form-container">
+                <h2 style="text-align: center; margin-bottom: 2rem; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    Enter Your Details
+                </h2>
                 
-                // If college closing rank is higher (worse) than user rank, user has good chances
-                if (rankDifference > 0) {
-                    // College closing rank is higher than user rank = Good chances
-                    if (rankDifference >= 1000) {
-                        return { level: "Excellent", percentage: "95%+", color: "bg-green-600", textColor: "text-green-600" };
-                    } else if (rankDifference >= 500) {
-                        return { level: "Very High", percentage: "90-95%", color: "bg-green-500", textColor: "text-green-500" };
-                    } else if (rankDifference >= 200) {
-                        return { level: "High", percentage: "80-90%", color: "bg-green-400", textColor: "text-green-400" };
-                    } else if (rankDifference >= 50) {
-                        return { level: "Good", percentage: "70-80%", color: "bg-yellow-400", textColor: "text-yellow-400" };
-                    } else {
-                        return { level: "Moderate", percentage: "60-70%", color: "bg-orange-400", textColor: "text-orange-400" };
-                    }
-                } else if (rankDifference === 0) {
-                    // User rank equals college closing rank
-                    return { level: "Fair", percentage: "50-60%", color: "bg-orange-500", textColor: "text-orange-500" };
-                } else {
-                    // College closing rank is lower (better) than user rank = Lower chances
-                    const absDifference = Math.abs(rankDifference);
-                    if (absDifference <= 100) {
-                        return { level: "Low", percentage: "30-50%", color: "bg-red-400", textColor: "text-red-400" };
-                    } else if (absDifference <= 300) {
-                        return { level: "Very Low", percentage: "15-30%", color: "bg-red-500", textColor: "text-red-500" };
-                    } else if (absDifference <= 500) {
-                        return { level: "Unlikely", percentage: "5-15%", color: "bg-red-600", textColor: "text-red-600" };
-                    } else {
-                        return { level: "No Chance", percentage: "<5%", color: "bg-gray-600", textColor: "text-gray-400" };
-                    }
-                }
-            };
-
-            // Function to get the correct rank column name
-            const getRankColumn = (category, gender) => {
-                const genderSuffix = gender === "Male" ? "BOYS" : "GIRLS";
-
-                switch (category) {
-                    case "OC":
-                        return `OC ${genderSuffix}`;
-                    case "BC-A":
-                        return `BC_A ${genderSuffix}`;
-                    case "BC-B":
-                        return `BC_B ${genderSuffix}`;
-                    case "BC-C":
-                        return `BC_C ${genderSuffix}`;
-                    case "BC-D":
-                        return `BC_D ${genderSuffix}`;
-                    case "BC-E":
-                        return `BC_E ${genderSuffix}`;
-                    case "SC":
-                        return `SC ${genderSuffix}`;
-                    case "ST":
-                        return `ST ${genderSuffix}`;
-                    case "EWS":
-                        return gender === "Male" ? "EWS GEN OU" : "EWS GIRLS OU";
-                    default:
-                        return `OC ${genderSuffix}`;
-                }
-            };
-
-            // Function to find eligible colleges with simple prediction
-            const findEligibleColleges = (userRank, branch, category, gender, place) => {
-                const rankColumn = getRankColumn(category, gender);
-
-                const findRankValue = (row) => {
-                    const normalizedRankColumn = rankColumn.replace(/\s+/g, " ").trim().toLowerCase();
-                    for (const key of Object.keys(row)) {
-                        const normalizedKey = key.replace(/\s+/g, " ").trim().toLowerCase();
-                        if (normalizedKey === normalizedRankColumn) {
-                            return row[key];
-                        }
-                    }
-                    return null;
-                };
-
-                const eligibleColleges = eapcetData
-                    .filter((row) => {
-                        if (!row || typeof row !== "object") return false;
-
-                        // Branch match
-                        let branchMatch = false;
-                        const branchCol = Object.keys(row).find(
-                            (k) => k.replace(/\s+/g, " ").toLowerCase().includes("branch name")
-                        );
-                        if (branchCol && row[branchCol] && row[branchCol].toString() === branch) {
-                            branchMatch = true;
-                        }
-
-                        // Place match
-                        let placeMatch = true;
-                        if (place) {
-                            placeMatch = false;
-                            const placeColumns = ["Place", "PLACE", "Location", "LOCATION", "District", "DISTRICT"];
-                            for (const col of placeColumns) {
-                                if (row[col] && row[col].toString().toLowerCase().includes(place.toLowerCase())) {
-                                    placeMatch = true;
-                                    break;
-                                }
-                            }
-                        }
-
-                        // Rank check: 25% below user rank
-                        const collegeRank = Number(findRankValue(row));
-                        const minRank = Math.floor(userRank * 0.75);
-                        const rankEligible = collegeRank && collegeRank > 0 && collegeRank >= minRank;
-
-                        return branchMatch && placeMatch && rankEligible;
-                    })
-                    .map((row) => {
-                        const collegeRank = Number(findRankValue(row) || 0);
-                        const admissionChances = calculateAdmissionChances(userRank, collegeRank);
-                        // Fee extraction: robust to whitespace/case
-                        const getFee = (row) => {
-                            const feeKey = Object.keys(row).find(
-                                k => k.replace(/\s+/g, '').toLowerCase() === 'tuitionfee' || k.replace(/\s+/g, '').toLowerCase() === 'fee' || k.replace(/\s+/g, '').toLowerCase() === 'fees'
-                            );
-                            return row[feeKey] ? `₹${row[feeKey]}` : 'Not Available';
-                        };
-                        return {
-                            "Institute Code": row["Inst\n Code"] || row["Inst Code"] || row["Institute Code"] || "N/A",
-                            "Institute Name": row["Institute Name"] || row["Institute"] || row["College"] || "Unknown Institute",
-                            Place: row["Place"] || row["PLACE"] || row["Location"] || "Unknown Location",
-                            "Branch Name": row["Branch Name"] || row["Branch"] || row["Course"] || "Unknown Branch",
-                            "Closing Rank": collegeRank,
-                            Fee: getFee(row),
-                            "Admission Chances": admissionChances,
-                            Affiliation: row["Affiliated To"] || row["Affiliation"] || row["AffiliatedTo"] || "-",
-                        };
-                    })
-                    .sort((a, b) => a["Closing Rank"] - b["Closing Rank"]);
-
-                return { colleges: eligibleColleges };
-            };
-
-            useEffect(() => {
-                const loadData = async () => {
-                    console.log("loadData called");
-                    try {
-                        setDataLoaded(false);
-                        setError("");
-                        setEapcetData([]);
-                        setBranches([]);
-                        setPlaces([]);
-
-                        const response = await fetch("./TGPEAPCET2024FIRSTPHASELASTRANKS.csv");
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        const csvText = await response.text();
-                        if (csvText.length < 100) {
-                            throw new Error("CSV file appears to be empty or too small");
-                        }
-                        
-                        // Fix: skip first two rows, use correct header row
-                        const csvLines = csvText.split(/\r?\n/);
-                        // Find the first line that contains 'Branch Name' and 'Place' (header row)
-                        let headerIdx = csvLines.findIndex(line => /Branch Name/i.test(line) && /Place/i.test(line));
-                        if (headerIdx === -1) headerIdx = 1; // fallback
-                        const csvData = csvLines.slice(headerIdx).join('\n');
-                        const parsed = Papa.parse(csvData, {
-                            header: true,
-                            skipEmptyLines: true
-                        });
-                        const dataRows = parsed.data;
-                        // Use exact header names as in the CSV
-                        const branchCol = 'Branch Name';
-                        const placeCol = 'Place';
-                        let realBranches = [];
-                        if (branchCol) {
-                            realBranches = [...new Set(dataRows.map(row => row[branchCol]?.trim()).filter(Boolean))];
-                        }
-                        let realPlaces = [];
-                        if (placeCol) {
-                            realPlaces = [...new Set(dataRows.map(row => row[placeCol]?.trim()).filter(Boolean))];
-                        }
-                        setEapcetData(dataRows);
-                            if (realBranches.length > 0) {
-                                setBranches(realBranches);
-                            }
-                            if (realPlaces.length > 0) {
-                                setPlaces(realPlaces);
-                        }
-                        setDataLoaded(true);
-                    } catch (err) {
-                        setError(`CSV loading failed: ${err.message}. Please ensure the CSV file is present and accessible.`);
-                        setDataLoaded(false);
-                    }
-                };
-                loadData();
-            }, []);
-
-            const handleChange = (e) => {
-                setForm({ ...form, [e.target.name]: e.target.value });
-            };
-
-            const handleSubmit = async (e) => {
-                if (e && e.preventDefault) e.preventDefault();
-
-                if (!dataLoaded) {
-                    setError("Data is still loading. Please wait...");
-                    return;
-                }
-
-                setError("");
-                setResults([]);
-                setLoading(true);
-
-                // Simulate processing delay
-                setTimeout(() => {
-                    try {
-                        const rank = Number.parseInt(form.rank);
-                        if (rank && rank > 0 && form.branch && form.category) {
-                            console.log("Starting prediction with:", {
-                                rank,
-                                branch: form.branch,
-                                category: form.category,
-                                gender: form.gender,
-                                place: form.place,
-                            });
-
-                            const { colleges } = findEligibleColleges(rank, form.branch, form.category, form.gender, form.place);
-
-                            setResults(colleges);
-                            setCurrentPage(1); // Reset to first page on new search
-                            setHasSearched(true); // Mark that a search has been performed
-
-                            if (colleges.length === 0) {
-                                const placeText = form.place ? ` in ${form.place}` : "";
-                                setError(
-                                    `No colleges found for rank ${rank} in ${form.branch} under ${form.category} category for ${form.gender}${placeText}. This could be because:
-                                    1. Your rank might be too high for the selected branch
-                                    2. The CSV data might not contain matching records
-                                    3. Try selecting a different branch or removing location filter
-                                    
-                                    Currently using ${eapcetData.length} college records for prediction.`
-                                );
-                            }
-                        } else {
-                            setError("Please fill all required fields with valid data.");
-                        }
-                    } catch (err) {
-                        console.error("Error processing request:", err);
-                        setError("Error processing your request. Please try again.");
-                    }
-                    setLoading(false);
-                }, 1000);
-            };
-
-            const handleClearPlaceFilter = () => {
-                setForm({ ...form, place: "" });
-            };
-
-            const totalPages = Math.ceil(results.length / rowsPerPage);
-            const paginatedResults = results.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
-
-            return (
-                <div className="min-h-screen relative">
-                    {/* Disclaimer Modal */}
-                    {showDisclaimer && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
-                            <div className="bg-[#8851F7] border-2 border-black rounded-xl shadow-2xl max-w-md w-full mx-4 p-6 text-center text-black">
-                                <h2 className="text-2xl font-bold text-black mb-4">Disclaimer</h2>
-                                <p className="text-black mb-4 text-base">
-                                    <strong>Important:</strong> This tool provides <span className="font-semibold">predicted results</span> only.<br/>
-                                    It does <span className="font-semibold">not guarantee</span> a seat in any college.<br/>
-                                    All predictions are based solely on official Telangana EAPCET cutoff data.<br/>
-                                    Actual seat allotment depends on official counseling and seat availability.
-                                </p>
-                                <button
-                                    className="mt-2 px-6 py-2 bg-white hover:bg-[#B889F9] text-black font-bold rounded-lg text-base transition-all duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-black"
-                                    onClick={() => setShowDisclaimer(false)}
-                                >
-                                    I Understand
-                                </button>
-                            </div>
+                <form id="predictionForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="rank" class="form-label">EAPCET Rank *</label>
+                            <input type="number" id="rank" name="rank" class="form-input" placeholder="Enter your rank" required min="1">
                         </div>
-                    )}
-
-                    {/* Main Content */}
-                    <div className="relative z-10 py-6 px-2 sm:py-8 sm:px-4 md:px-8">
-                        <div className="max-w-7xl mx-auto">
-                            {/* Professional Header Section */}
-                            <div className="text-center mb-8 md:mb-12">
-                                <div className="mb-8">
-                                    <div className="inline-flex items-center justify-center w-20 h-20 bg-[#8851F7] rounded-full mb-6">
-                                        <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                fillRule="evenodd"
-                                                d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"
-                                                clipRule="evenodd"
-                                            />
-                                        </svg>
-                                    </div>
-                                    <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight">
-                                        <span className="block text-3xl sm:text-5xl md:text-6xl font-bold text-black">EAPCET</span>
-                                        <span className="block text-xl sm:text-3xl md:text-4xl font-light mt-2 text-black">College Predictor</span>
-                                    </h1>
-                                    <div className="w-16 sm:w-24 h-1 bg-yellow-400 mx-auto mb-6"></div>
-                                    <p className="text-lg max-w-3xl mx-auto leading-relaxed mb-6 text-black">Advanced college prediction system powered by official Telangana EAPCET cutoff data. Make informed decisions about your  education with precision analytics.</p>
-                                    <div className="inline-flex items-center bg-[#8851F7] text-white px-6 py-2 rounded-full font-semibold">
-                                        <span className="w-2 h-2 bg-white rounded-full mr-3 animate-pulse"></span>
-                                        Developed by Revanth Adepu
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Professional Form Card */}
-                            <div className="w-full max-w-6xl mx-auto p-4">
-                                <div className="bg-white rounded-xl shadow-xl p-8 mb-8">
-                                    {/* Prediction Parameters Form */}
-                                    <h2 className="text-2xl font-bold mb-2 text-black">Prediction Parameters</h2>
-                                    <p className="mb-6 text-black">Enter your details to find eligible colleges</p>
-                                    <form className="space-y-6 sm:space-y-8" onSubmit={handleSubmit}>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                                        {/* Rank Input */}
-                                        <div>
-                                                <label className="block text-sm font-semibold text-primary mb-3 uppercase tracking-wide">
-                                                    EAPCET Rank *
-                                            </label>
-                                            <input
-                                                type="number"
-                                                name="rank"
-                                                value={form.rank}
-                                                onChange={handleChange}
-                                                required
-                                                min="1"
-                                                    className="w-full p-3 rounded-lg border-2 border-[#8851F7] bg-white text-black focus:ring-2 focus:ring-[#8851F7]"
-                                                    placeholder="Enter your EAPCET rank (e.g., 1000)"
-                                            />
-                                        </div>
-
-                                        {/* Branch Select */}
-                                        <div>
-                                                <label className="block text-sm font-semibold text-primary mb-3 uppercase tracking-wide">
-                                                Branch *
-                                            </label>
-                                            <select
-                                                name="branch"
-                                                value={form.branch}
-                                                onChange={handleChange}
-                                                required
-                                                    className="w-full p-3 rounded-lg border-2 border-[#8851F7] bg-white text-black focus:ring-2 focus:ring-[#8851F7]"
-                                            >
-                                                <option value="">Select Branch</option>
-                                                {branches.map((branch) => (
-                                                    <option key={branch} value={branch}>
-                                                        {branch}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
-
-                                        {/* Category Select */}
-                                        <div>
-                                                <label className="block text-sm font-semibold text-primary mb-3 uppercase tracking-wide">
-                                                Category *
-                                            </label>
-                                            <select
-                                                name="category"
-                                                value={form.category}
-                                                onChange={handleChange}
-                                                required
-                                                    className="w-full p-3 rounded-lg border-2 border-[#8851F7] bg-white text-black focus:ring-2 focus:ring-[#8851F7]"
-                                            >
-                                                <option value="">Select Category</option>
-                                                {categories.map((category) => (
-                                                    <option key={category} value={category}>
-                                                        {category}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
-
-                                        {/* Gender Select */}
-                                        <div>
-                                                <label className="block text-sm font-semibold text-primary mb-3 uppercase tracking-wide">
-                                                Gender *
-                                            </label>
-                                            <select
-                                                name="gender"
-                                                value={form.gender}
-                                                onChange={handleChange}
-                                                required
-                                                    className="w-full p-3 rounded-lg border-2 border-[#8851F7] bg-white text-black focus:ring-2 focus:ring-[#8851F7]"
-                                            >
-                                                {genders.map((gender) => (
-                                                    <option key={gender.value} value={gender.value}>
-                                                        {gender.label}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
-
-                                        {/* Place Select */}
-                                        <div className="sm:col-span-2 lg:col-span-1">
-                                                <label className="block text-sm font-semibold text-primary mb-3 uppercase tracking-wide">
-                                                Location Filter
-                                                {form.place && (
-                                                    <button
-                                                        type="button"
-                                                        onClick={handleClearPlaceFilter}
-                                                        className="ml-3 text-xs bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded-full transition-all duration-200 font-medium"
-                                                    >
-                                                        Clear
-                                                    </button>
-                                                )}
-                                            </label>
-                                            <select
-                                                name="place"
-                                                value={form.place}
-                                                onChange={handleChange}
-                                                    className="w-full p-3 rounded-lg border-2 border-[#8851F7] bg-white text-black focus:ring-2 focus:ring-[#8851F7]"
-                                            >
-                                                <option value="">All Locations</option>
-                                                {places.map((place) => (
-                                                    <option key={place} value={place}>
-                                                        {place}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    {/* Submit Button */}
-                                    <div className="text-center pt-4">
-                                        <button
-                                            type="submit"
-                                            disabled={loading || !dataLoaded}
-                                                className="w-full py-3 rounded-lg bg-[#8851F7] text-white font-bold hover:bg-[#B889F9] transition"
-                                        >
-                                            {!dataLoaded ? (
-                                                <div className="flex items-center justify-center">
-                                                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-black mr-3"></div>
-                                                    Loading Data...
-                                                </div>
-                                            ) : loading ? (
-                                                <div className="flex items-center justify-center">
-                                                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-black mr-3"></div>
-                                                    Analyzing...
-                                                </div>
-                                            ) : (
-                                                "Generate Predictions"
-                                            )}
-                                        </button>
-                                </div>
-                            </form>
-                                        </div>
-                                <div className="bg-white rounded-xl shadow-xl p-8 mb-8">
-                                    {/* Show No Colleges Found message immediately after form, before results and System Guide */}
-                                    {hasSearched && results.length === 0 && !loading && dataLoaded && (
-                                        <div className="w-full max-w-xl mx-auto bg-white border border-[#8851F7] rounded-xl shadow-md p-6 mt-8 text-center">
-                                            <h3 className="text-xl font-bold text-[#8851F7] mb-2">No colleges found</h3>
-                                            <p className="text-black">
-                                                Sorry, we couldn't find any eligible colleges for your criteria.<br/>
-                                                Try changing your rank, branch, category, or location filter and search again.
-                                            </p>
-                                </div>
-                            )}
-                                    {/* Results Section - moved here to appear immediately after Generate Predictions */}
-                            {results.length > 0 && (
-                                        <div className="bg-gray-900 border border-yellow-400/20 rounded-lg shadow-2xl p-2 sm:p-8 mt-8">
-                                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
-                                        <div>
-                                            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">Eligible Colleges ({results.length})</h2>
-                                            <p className="text-gray-400 text-sm sm:text-base">Based on your rank and preferences</p>
-                                            <div className="mt-2 p-3 bg-blue-900/20 border border-blue-500/30 rounded-lg">
-                                                <p className="text-blue-300 text-sm">
-                                                    <strong>Prediction Range:</strong> [Prediction starts from 25% below of your rank]
-                                                </p>
-                                            </div>
-                                        </div>
-                                        {form.place && (
-                                            <div className="flex items-center bg-yellow-400 text-black px-4 py-2 rounded-md font-semibold text-xs sm:text-base">
-                                                <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
-                                                {form.place}
-                                            </div>
-                                        )}
-                                    </div>
-                                            {/* Mobile: Cards + System Guide, full width, no horizontal scroll */}
-                                            <div className="block sm:hidden w-full px-0">
-                                                {paginatedResults.map((row, idx) => (
-                                                    <div
-                                                        key={idx}
-                                                        className="bg-[#8851F7] rounded-xl shadow-md p-4 mb-4 flex flex-col gap-2 border border-[#8851F7]"
-                                                    >
-                                                        <div className="flex items-center gap-2 mb-1 flex-wrap">
-                                                            <span className="font-extrabold text-lg sm:text-xl text-[#232e5c] tracking-wide">{row["Institute Code"]}</span>
-                                                            <span className="font-bold text-white text-base sm:text-lg">{row["Institute Name"]}</span>
-                                                        </div>
-                                                        <div className="flex items-center gap-2 text-white text-sm mb-1 flex-wrap">
-                                                            <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a6 6 0 016 6c0 4.418-6 10-6 10S4 12.418 4 8a6 6 0 016-6zm0 8a2 2 0 100-4 2 2 0 000 4z"/></svg>
-                                                                {row["Place"]}
-                                                            </div>
-                                                        <div className="flex items-center gap-2 text-white text-sm mb-1 flex-wrap">
-                                                            <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12v10H4V5zm2 2v2h2V7H6zm0 4v2h2v-2H6zm4-4v2h2V7h-2zm0 4v2h2v-2h-2z"/></svg>
-                                                                {row["Branch Name"]}
-                                                            </div>
-                                                        <div className="flex items-center gap-3 mt-2 flex-wrap">
-                                                            <span className="inline-block bg-yellow-400 text-black rounded px-3 py-1 text-xs font-bold">Rank: {row["Closing Rank"]}</span>
-                                                            <span className="inline-block bg-red-600 text-white rounded px-3 py-1 text-xs font-bold">{row["Fee"]}</span>
-                                                        </div>
-                                                        <div className="flex items-center gap-3 mt-2 flex-wrap">
-                                                            <span className="inline-block rounded px-3 py-1 text-xs font-bold bg-[#232e5c] text-white">
-                                                                        {row["Admission Chances"].level}
-                                                                    </span>
-                                                            <span className="inline-block text-xs font-semibold text-[#b3c6ff]">{row["Admission Chances"].percentage}</span>
-                                                                </div>
-                                                    </div>
-                                                ))}
-                                                {/* Pagination Controls */}
-                                                <div className="flex flex-wrap justify-center items-center mt-4 gap-2 w-full">
-                                                    <button
-                                                        className="px-3 py-1 rounded bg-[#B889F9] text-black font-bold disabled:opacity-50"
-                                                        onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                                                        disabled={currentPage === 1}
-                                                    >
-                                                        Previous
-                                                    </button>
-                                                    {[...Array(totalPages)].map((_, idx) => (
-                                                        <button
-                                                            key={idx}
-                                                            className={`px-3 py-1 rounded ${currentPage === idx + 1 ? 'bg-[#8851F7] text-white' : 'bg-white text-black'} font-bold`}
-                                                            onClick={() => setCurrentPage(idx + 1)}
-                                                        >
-                                                            {idx + 1}
-                                                        </button>
-                                                    ))}
-                                                    <button
-                                                        className="px-3 py-1 rounded bg-[#B889F9] text-black font-bold disabled:opacity-50"
-                                                        onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                                                        disabled={currentPage === totalPages}
-                                                    >
-                                                        Next
-                                                    </button>
-                                        </div>
-                                            </div>
-                                            {/* System Guide for mobile, full width */}
-                                            <div className="block sm:hidden w-full px-0">
-                                                <div className="bg-white rounded-xl shadow-xl p-4 mt-8 mx-2">
-                                                    <h2 className="text-2xl font-bold mb-4 text-black">System Guide</h2>
-                                                    <div className="grid gap-8">
-                                                        <div className="space-y-6">
-                                                            <div className="flex items-start space-x-4">
-                                                                <div className="flex-shrink-0 w-8 h-8 bg-[#8851F7] text-white rounded-full flex items-center justify-center font-bold text-sm">1</div>
-                                                        <div>
-                                                                    <h4 className="text-[#8851F7] font-semibold text-lg mb-2">Input Requirements</h4>
-                                                                    <p className="text-black">Enter your EAPCET rank (e.g., 1000), select your preferred branch, category, and gender. All marked fields are mandatory for accurate predictions.</p>
-                                                        </div>
-                                                            </div>
-                                                            <div className="flex items-start space-x-4">
-                                                                <div className="flex-shrink-0 w-8 h-8 bg-[#8851F7] text-white rounded-full flex items-center justify-center font-bold text-sm">2</div>
-                                                                <div>
-                                                                    <h4 className="text-[#8851F7] font-semibold text-lg mb-2">Location Filtering</h4>
-                                                                    <p className="text-black">Optionally filter results by specific locations. Leave blank to view all eligible institutions across Telangana.</p>
-                                                            </div>
-                                                        </div>
-                                                            <div className="flex items-start space-x-4">
-                                                                <div className="flex-shrink-0 w-8 h-8 bg-[#8851F7] text-white rounded-full flex items-center justify-center font-bold text-sm">3</div>
-                                                                <div>
-                                                                    <h4 className="text-[#8851F7] font-semibold text-lg mb-2">Results Analysis</h4>
-                                                                    <p className="text-black">Review eligible colleges sorted by closing rank. Compare fees, locations, and institute codes to make informed decisions.</p>
-                                                        </div>
-                                                                </div>
-                                                            <div className="bg-yellow-400/10 border border-yellow-400/30 p-6 rounded-lg">
-                                                                <h4 className="text-yellow-400 font-bold text-lg mb-2">Data Accuracy</h4>
-                                                                <p className="text-black text-sm">Predictions are based on official Telangana EAPCET 2024 first phase cutoff data. Results are indicative and subject to actual seat availability and counseling procedures.</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {/* Desktop/Tablet: Table + System Guide as before */}
-                                            <div className="hidden sm:block">
-                                                <div className="overflow-x-auto">
-                                                    <table className="min-w-full bg-white rounded-lg shadow-lg text-[#8851F7]">
-                                                        <thead className="sticky top-0 z-10 bg-[#B889F9] border-b border-[#8851F7]">
-                                                            <tr>
-                                                                <th className="px-4 py-2 text-left whitespace-nowrap font-semibold text-black">Institute Code</th>
-                                                                <th className="px-4 py-2 text-left whitespace-nowrap font-semibold text-black">College Name</th>
-                                                                <th className="px-4 py-2 text-left whitespace-nowrap font-semibold text-black">Branch</th>
-                                                                <th className="px-4 py-2 text-left whitespace-nowrap font-semibold text-black">Fee</th>
-                                                                <th className="px-4 py-2 text-left whitespace-nowrap font-semibold text-black">Closing Rank</th>
-                                                                <th className="px-4 py-2 text-left whitespace-nowrap font-semibold text-black">Affiliation</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {paginatedResults.map((row, idx) => (
-                                                                <tr key={idx} className={`border-b last:border-b-0 transition ${idx % 2 === 0 ? 'bg-white' : 'bg-[#F3E8FF]'} hover:bg-[#B889F9]/40`}>
-                                                                    <td className="px-4 py-2 font-mono text-base font-extrabold text-black">{row["Institute Code"]}</td>
-                                                                    <td className="px-4 py-2 font-semibold text-black">{row["Institute Name"]}</td>
-                                                                    <td className="px-4 py-2 text-black">{row["Branch Name"]}</td>
-                                                                    <td className="px-4 py-2 text-black">{row["Fee"]}</td>
-                                                                    <td className="px-4 py-2"><span className="inline-block bg-[#B889F9] text-black rounded px-2 py-1 text-xs font-bold">{row["Closing Rank"]}</span></td>
-                                                                    <td className="px-4 py-2 text-black">{row["Affiliation"]}</td>
-                                                                </tr>
-                                                            ))}
-                                                        </tbody>
-                                                    </table>
-                                                    {/* Pagination Controls */}
-                                                    <div className="flex flex-wrap justify-center items-center mt-4 gap-2 w-full">
-                                                        <button
-                                                            className="px-3 py-1 rounded bg-[#B889F9] text-black font-bold disabled:opacity-50"
-                                                            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                                                            disabled={currentPage === 1}
-                                                        >
-                                                            Previous
-                                                        </button>
-                                                        {[...Array(totalPages)].map((_, idx) => (
-                                                            <button
-                                                                key={idx}
-                                                                className={`px-3 py-1 rounded ${currentPage === idx + 1 ? 'bg-[#8851F7] text-white' : 'bg-white text-black'} font-bold`}
-                                                                onClick={() => setCurrentPage(idx + 1)}
-                                                            >
-                                                                {idx + 1}
-                                                            </button>
-                                                        ))}
-                                                        <button
-                                                            className="px-3 py-1 rounded bg-[#B889F9] text-black font-bold disabled:opacity-50"
-                                                            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                                                            disabled={currentPage === totalPages}
-                                                        >
-                                                            Next
-                                                        </button>
-                                                    </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                                </div>
-                            </div>
-
-                            {/* Error Message */}
-                            {error && (
-                                <div className="mb-8 p-4 sm:p-6 bg-red-900/20 border border-red-500/30 rounded-lg text-xs sm:text-base">
-                                    <div className="flex items-center">
-                                        <div className="flex-shrink-0">
-                                            <svg className="w-6 h-6 text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                                                <path
-                                                    fillRule="evenodd"
-                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                                                    clipRule="evenodd"
-                                                />
-                                            </svg>
-                                        </div>
-                                        <div className="ml-4">
-                                            <pre className="text-red-300 font-medium whitespace-pre-wrap text-sm">{error}</pre>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* System Guide for desktop/tablet */}
-                            <div className="hidden sm:block">
-                                <div className="bg-white rounded-xl shadow-xl p-8 mb-8">
-                                    <h2 className="text-2xl font-bold mb-4 text-black">System Guide</h2>
-                                <div className="grid md:grid-cols-2 gap-8">
-                                    <div className="space-y-6">
-                                        <div className="flex items-start space-x-4">
-                                                <div className="flex-shrink-0 w-8 h-8 bg-[#8851F7] text-white rounded-full flex items-center justify-center font-bold text-sm">1</div>
-                                            <div>
-                                                <h4 className="text-white font-semibold text-lg mb-2">Input Requirements</h4>
-                                                    <p className="text-black">Enter your EAPCET rank (e.g., 1000), select your preferred branch, category, and gender. All marked fields are mandatory for accurate predictions.</p>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-start space-x-4">
-                                                <div className="flex-shrink-0 w-8 h-8 bg-[#8851F7] text-white rounded-full flex items-center justify-center font-bold text-sm">2</div>
-                                            <div>
-                                                <h4 className="text-white font-semibold text-lg mb-2">Location Filtering</h4>
-                                                    <p className="text-black">Optionally filter results by specific locations. Leave blank to view all eligible institutions across Telangana.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="space-y-6">
-                                        <div className="flex items-start space-x-4">
-                                                <div className="flex-shrink-0 w-8 h-8 bg-[#8851F7] text-white rounded-full flex items-center justify-center font-bold text-sm">3</div>
-                                            <div>
-                                                <h4 className="text-white font-semibold text-lg mb-2">Results Analysis</h4>
-                                                    <p className="text-black">Review eligible colleges sorted by closing rank. Compare fees, locations, and institute codes to make informed decisions.</p>
-                                            </div>
-                                        </div>
-                                        <div className="bg-yellow-400/10 border border-yellow-400/30 p-6 rounded-lg">
-                                            <h4 className="text-yellow-400 font-bold text-lg mb-2">Data Accuracy</h4>
-                                                <p className="text-black text-sm">Predictions are based on official Telangana EAPCET 2024 first phase cutoff data. Results are indicative and subject to actual seat availability and counseling procedures.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Professional Footer */}
-                            <footer className="text-center mt-8 sm:mt-12">
-                                <div className="max-w-2xl mx-auto py-6 px-4 rounded-xl bg-white shadow-lg border border-[#8851F7]">
-                                    <h2 className="text-2xl font-bold text-[#8851F7] mb-2">EAPCET College Predictor 2025</h2>
-                                    <p className="text-sm sm:text-base text-black mb-2 flex items-center justify-center gap-2">
-                                        Made with <span className="text-red-500 text-lg">❤️</span> using AI by Revanth Adepu
-                                    </p>
-                                    <div className="flex justify-center gap-4 mt-2">
-                                        <a href="https://instagram.com/revanth.inn" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-[#8851F7] hover:text-[#B889F9] font-semibold">
-                                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zm4.25 3.25a5.25 5.25 0 1 1 0 10.5a5.25 5.25 0 0 1 0-10.5zm0 1.5a3.75 3.75 0 1 0 0 7.5a3.75 3.75 0 0 0 0-7.5zm5.25.75a1 1 0 1 1-2 0a1 1 0 0 1 2 0z"/></svg>
-                                            revanth.inn
-                                        </a>
-                                        <a href="https://www.linkedin.com/in/revanthinn/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-[#8851F7] hover:text-[#B889F9] font-semibold">
-                                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75s1.75.79 1.75 1.75s-.78 1.75-1.75 1.75zm15.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47c-1.5 0-1.73 1.17-1.73 2.38v4.59h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54c3.04 0 3.6 2 3.6 4.59v4.72z"/></svg>
-                                            revanth.inn
-                                        </a>
-                                </div>
-                            </div>
-                            </footer>
+                        
+                        <div class="form-group">
+                            <label for="category" class="form-label">Category *</label>
+                            <select id="category" name="category" class="form-select" required>
+                                <option value="">Select Category</option>
+                                <option value="OC">OC (Open Category)</option>
+                                <option value="BC_A">BC-A</option>
+                                <option value="BC_B">BC-B</option>
+                                <option value="BC_C">BC-C</option>
+                                <option value="BC_D">BC-D</option>
+                                <option value="BC_E">BC-E</option>
+                                <option value="SC">SC</option>
+                                <option value="ST">ST</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="gender" class="form-label">Gender *</label>
+                            <select id="gender" name="gender" class="form-select" required>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="branch" class="form-label">Preferred Branch</label>
+                            <select id="branch" name="branch" class="form-select">
+                                <option value="">All Branches</option>
+                                <option value="CSE">Computer Science Engineering</option>
+                                <option value="ECE">Electronics & Communication</option>
+                                <option value="EEE">Electrical & Electronics</option>
+                                <option value="MECH">Mechanical Engineering</option>
+                                <option value="CIVIL">Civil Engineering</option>
+                                <option value="IT">Information Technology</option>
+                                <option value="CHEM">Chemical Engineering</option>
+                                <option value="AERO">Aeronautical Engineering</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="region" class="form-label">Preferred Region</label>
+                            <select id="region" name="region" class="form-select">
+                                <option value="">All Regions</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                                <option value="Warangal">Warangal</option>
+                                <option value="Karimnagar">Karimnagar</option>
+                                <option value="Nizamabad">Nizamabad</option>
+                                <option value="Khammam">Khammam</option>
+                                <option value="Nalgonda">Nalgonda</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="collegeType" class="form-label">College Type</label>
+                            <select id="collegeType" name="collegeType" class="form-select">
+                                <option value="">All Types</option>
+                                <option value="Government">Government</option>
+                                <option value="Private">Private</option>
+                                <option value="Autonomous">Autonomous</option>
+                            </select>
                         </div>
                     </div>
+                    
+                    <button type="submit" class="predict-button" id="predictBtn">
+                        🔮 Predict My Colleges
+                    </button>
+                </form>
+            </div>
+
+            <!-- Results Section -->
+            <div id="resultsSection" class="results-section" style="display: none;">
+                <div class="results-header">
+                    <h2 class="results-title">Your Eligible Colleges</h2>
+                    <p class="results-subtitle">Based on your rank and preferences, here are your college predictions</p>
                 </div>
-            );
-        }
+                
+                <!-- Loading State -->
+                <div id="loadingState" class="loading-state" style="display: none;">
+                    <div class="loading-spinner"></div>
+                    <p>Analyzing your data and predicting colleges...</p>
+                </div>
+                
+                <!-- Colleges Grid -->
+                <div id="collegesGrid" class="colleges-grid"></div>
+                
+                <!-- Empty State -->
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <div class="empty-state-icon">🔍</div>
+                    <h3>No Colleges Found</h3>
+                    <p>Try adjusting your preferences or check your rank input.</p>
+                </div>
+            </div>
+        </div>
+    </main>
 
-        ReactDOM.render(<App />, document.getElementById('root'));
-    </script>
-    <div id="userPopupOverlay">
-        <form id="userForm" autocomplete="off">
-          <h2>Enter Details</h2>
-          <div class="form-subheading">Please enter your details to continue</div>
-          <div class="userForm-flex-row">
-            <div class="form-floating">
-              <input type="text" id="name" class="form-control" placeholder="" required autocomplete="off">
-              <label for="name">Student Name</label>
-            </div>
-            <div class="form-floating">
-              <input type="text" id="number" class="form-control" placeholder="" required autocomplete="off">
-              <label for="number">Phone Number</label>
-            </div>
-            <div class="form-floating">
-              <input type="text" id="place" class="form-control" placeholder="" required autocomplete="off">
-              <label for="place">Place</label>
-            </div>
-          </div>
-          <div class="userForm-checkbox-row">
-            <input type="checkbox" id="termsCheck" required>
-            <label for="termsCheck" style="margin:0; color:#FFD700; font-size:0.98rem;">I agree to the <a href="#" style="color:#FFD700;text-decoration:underline;">Terms and Conditions</a></label>
-          </div>
-          <button type="submit" class="submit-btn" id="userFormSubmitBtn" disabled>Submit</button>
-        </form>
-      </div>
-      <script>
-        // 🔧 Firebase config (Replace with your own)
-        const firebaseConfig = {
-          apiKey: "AIzaSyC-rdXiAoJg16m7CC_lIWmKpJVsqIOZVHk",
-          authDomain: "eapcet-college-predictor-63205.firebaseapp.com",
-          projectId: "eapcet-college-predictor-63205",
-          storageBucket: "eapcet-college-predictor-63205.firebasestorage.app",
-          messagingSenderId: "5162796699",
-          appId: "1:5162796699:web:d1ec081a51fdfebdc5283e",
-          measurementId: "G-M09SXDF0XL"
-        };
-      
-        // ✅ Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-      
-        // Show/hide overlay logic
-        function showMainContent() {
-          document.getElementById('userPopupOverlay').style.display = 'none';
-          // If you want to show your main content, add code here
-        }
-        function showPopup() {
-          document.getElementById('userPopupOverlay').style.display = 'flex';
-          // If you want to hide your main content, add code here
-        }
-      
-        // On Form Submit
-        document.getElementById('userForm').addEventListener('submit', async function(e) {
-          e.preventDefault();
-      
-          const name = document.getElementById('name').value;
-          const number = document.getElementById('number').value;
-          const place = document.getElementById('place').value;
-      
-          const user = { name, number, place };
-      
-          // 👉 Store in localStorage
-          localStorage.setItem('college_user', JSON.stringify(user));
-      
-          // 👉 Save to Firestore (using number as unique ID)
-          try {
-            await db.collection('users').doc(number).set(user);
-            // Removed success popup, just show main content
-            showMainContent();
-          } catch (err) {
-            // Optionally, you can use alert or keep the error popup
-            new Popup({
-              id: "error-popup",
-              title: "Error",
-              content: "Error saving data: " + err.message,
-              showImmediately: true
-            });
-          }
+    <script>
+        // Sample college data for demonstration
+        const sampleColleges = [
+            {
+                name: "Jawaharlal Nehru Technological University Hyderabad",
+                location: "Hyderabad",
+                branch: "CSE",
+                type: "Government",
+                cutoffRank: 1500,
+                probability: "high",
+                fees: "₹50,000/year",
+                rating: "4.5/5"
+            },
+            {
+                name: "National Institute of Technology Warangal",
+                location: "Warangal",
+                branch: "ECE",
+                type: "Government",
+                cutoffRank: 2000,
+                probability: "medium",
+                fees: "₹75,000/year",
+                rating: "4.8/5"
+            },
+            {
+                name: "Osmania University College of Engineering",
+                location: "Hyderabad",
+                branch: "EEE",
+                type: "Government",
+                cutoffRank: 3000,
+                probability: "high",
+                fees: "₹45,000/year",
+                rating: "4.2/5"
+            },
+            {
+                name: "Kakatiya Institute of Technology & Science",
+                location: "Warangal",
+                branch: "MECH",
+                type: "Government",
+                cutoffRank: 4000,
+                probability: "high",
+                fees: "₹40,000/year",
+                rating: "4.0/5"
+            },
+            {
+                name: "Chaitanya Bharathi Institute of Technology",
+                location: "Hyderabad",
+                branch: "IT",
+                type: "Private",
+                cutoffRank: 5000,
+                probability: "medium",
+                fees: "₹1,20,000/year",
+                rating: "4.3/5"
+            },
+            {
+                name: "Vasavi College of Engineering",
+                location: "Hyderabad",
+                branch: "CSE",
+                type: "Private",
+                cutoffRank: 6000,
+                probability: "low",
+                fees: "₹1,50,000/year",
+                rating: "4.1/5"
+            }
+        ];
+
+        // Form submission handler
+        document.getElementById('predictionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const rank = parseInt(formData.get('rank'));
+            const category = formData.get('category');
+            const gender = formData.get('gender');
+            const branch = formData.get('branch');
+            const region = formData.get('region');
+            const collegeType = formData.get('collegeType');
+            
+            if (!rank || !category || !gender) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            predictColleges(rank, category, gender, branch, region, collegeType);
         });
-      
-        // On page load, check localStorage
-        window.onload = () => {
-          const userData = JSON.parse(localStorage.getItem('college_user'));
-          if (userData) {
-            showMainContent();
-          } else {
-            showPopup();
-          }
 
-          // Enable/disable submit button based on checkbox
-          const termsCheck = document.getElementById('termsCheck');
-          const submitBtn = document.getElementById('userFormSubmitBtn');
-          if (termsCheck && submitBtn) {
-            termsCheck.addEventListener('change', function() {
-              submitBtn.disabled = !this.checked;
+        function predictColleges(rank, category, gender, branch, region, collegeType) {
+            const resultsSection = document.getElementById('resultsSection');
+            const loadingState = document.getElementById('loadingState');
+            const collegesGrid = document.getElementById('collegesGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            // Show results section and loading state
+            resultsSection.style.display = 'block';
+            loadingState.style.display = 'block';
+            collegesGrid.innerHTML = '';
+            emptyState.style.display = 'none';
+            
+            // Scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                loadingState.style.display = 'none';
+                
+                // Filter colleges based on criteria
+                let filteredColleges = sampleColleges.filter(college => {
+                    let matches = true;
+                    
+                    if (branch && college.branch !== branch) matches = false;
+                    if (region && college.location !== region) matches = false;
+                    if (collegeType && college.type !== collegeType) matches = false;
+                    
+                    return matches;
+                });
+                
+                // Determine probability based on rank
+                filteredColleges = filteredColleges.map(college => {
+                    let probability = 'low';
+                    if (rank <= college.cutoffRank * 0.8) probability = 'high';
+                    else if (rank <= college.cutoffRank * 1.2) probability = 'medium';
+                    
+                    return { ...college, probability };
+                });
+                
+                // Sort by probability (high first)
+                filteredColleges.sort((a, b) => {
+                    const order = { high: 3, medium: 2, low: 1 };
+                    return order[b.probability] - order[a.probability];
+                });
+                
+                if (filteredColleges.length === 0) {
+                    emptyState.style.display = 'block';
+                } else {
+                    displayColleges(filteredColleges);
+                }
+            }, 2000);
+        }
+
+        function displayColleges(colleges) {
+            const collegesGrid = document.getElementById('collegesGrid');
+            
+            colleges.forEach((college, index) => {
+                const collegeCard = createCollegeCard(college);
+                collegeCard.style.animationDelay = `${index * 0.1}s`;
+                collegeCard.classList.add('fade-in-up');
+                collegesGrid.appendChild(collegeCard);
             });
-            submitBtn.disabled = !termsCheck.checked;
-          }
-        };
+        }
+
+        function createCollegeCard(college) {
+            const card = document.createElement('div');
+            card.className = `college-card ${college.probability}-chance`;
+            
+            const probabilityText = {
+                high: 'High Chance',
+                medium: 'Medium Chance',
+                low: 'Low Chance'
+            };
+            
+            card.innerHTML = `
+                <div class="college-header">
+                    <div>
+                        <h3 class="college-name">${college.name}</h3>
+                        <div class="college-location">${college.location}</div>
+                    </div>
+                    <div class="probability-badge ${college.probability}">
+                        ${probabilityText[college.probability]}
+                    </div>
+                </div>
+                
+                <div class="college-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Branch</span>
+                        <span class="detail-value">${college.branch}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Type</span>
+                        <span class="detail-value">${college.type}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Fees</span>
+                        <span class="detail-value">${college.fees}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Rating</span>
+                        <span class="detail-value">${college.rating}</span>
+                    </div>
+                </div>
+                
+                <div class="branch-badge">${college.branch} Engineering</div>
+            `;
+            
+            return card;
+        }
+
+        // Add some interactive feedback
+        document.querySelectorAll('.form-input, .form-select').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
     </script>
 </body>
 </html>
