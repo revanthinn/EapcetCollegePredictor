@@ -2,15 +2,15 @@
 
 <html lang="en">
 <head>
-<meta content="Use our free EAPCET college predictor to check which colleges you can get into based on your rank, category, and preferences." name="description"/>
-<link href="https://eapcet-college-predictor.vercel.app/" rel="canonical"/>
-<meta content="EAPCET College Predictor 2025" property="og:title"/>
-<meta content="Check eligible colleges using your EAPCET rank." property="og:description"/>
-<meta content="https://eapcet-college-predictor.vercel.app/" property="og:url"/>
+<meta content="Use our free TS EAMCET college predictor to check which colleges you can get into based on your rank, category, and preferences." name="description"/>
+<link href="https://TS EAMCET-college-predictor.vercel.app/" rel="canonical"/>
+<meta content="TS EAMCET College Predictor 2025" property="og:title"/>
+<meta content="Check eligible colleges using your TS EAMCET rank." property="og:description"/>
+<meta content="https://TS EAMCET-college-predictor.vercel.app/" property="og:url"/>
 <meta content="website" property="og:type"/>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>EAPCET College Predictor</title>
+<title>TS EAMCET College Predictor</title>
 <link href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'&gt;&lt;path fill='%238851F7' d='M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z'/&gt;&lt;/svg&gt;" rel="icon" type="image/svg+xml"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
@@ -260,7 +260,7 @@
 </head>
 <body class="min-h-screen w-full" style="background:#B889F9; color:#8851F7;">
 <div class="w-full flex justify-between items-center gap-2 px-4 py-2" style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.85);backdrop-filter:blur(6px);">
-<span class="font-extrabold text-xl sm:text-2xl" style="color:#8851F7;letter-spacing:0.5px;">EAPCET Predictor</span>
+<span class="font-extrabold text-xl sm:text-2xl" style="color:#8851F7;letter-spacing:0.5px;">TS EAMCET Predictor</span>
 <a class="inline-block bg-[#8851F7] hover:bg-[#B889F9] text-white font-bold px-5 py-2 rounded-full shadow transition" href="/blog.html" rel="noopener noreferrer" style="text-decoration: none;" target="_blank">
             Blog
         </a>
@@ -277,7 +277,7 @@
         const categories = ["OC", "BC-A", "BC-B", "BC-C", "BC-D", "BC-E", "SC", "ST", "EWS"];
 
         function App() {
-            const [eapcetData, setEapcetData] = useState([]);
+            const [TS EAMCETData, setTS EAMCETData] = useState([]);
             const [branches, setBranches] = useState([]);
             const [places, setPlaces] = useState([]);
             const [results, setResults] = useState([]);
@@ -377,7 +377,7 @@
                     return null;
                 };
 
-                const eligibleColleges = eapcetData
+                const eligibleColleges = TS EAMCETData
                     .filter((row) => {
                         if (!row || typeof row !== "object") return false;
 
@@ -442,11 +442,11 @@
                     try {
                         setDataLoaded(false);
                         setError("");
-                        setEapcetData([]);
+                        setTS EAMCETData([]);
                         setBranches([]);
                         setPlaces([]);
 
-                        const response = await fetch("./TGPEAPCET2024FIRSTPHASELASTRANKS.csv");
+                        const response = await fetch("./TGPTS EAMCET2024FIRSTPHASELASTRANKS.csv");
                         if (!response.ok) {
                             throw new Error(`HTTP error! status: ${response.status}`);
                         }
@@ -477,7 +477,7 @@
                         if (placeCol) {
                             realPlaces = [...new Set(dataRows.map(row => row[placeCol]?.trim()).filter(Boolean))];
                         }
-                        setEapcetData(dataRows);
+                        setTS EAMCETData(dataRows);
                             if (realBranches.length > 0) {
                                 setBranches(realBranches);
                             }
@@ -536,7 +536,7 @@
                                     2. The CSV data might not contain matching records
                                     3. Try selecting a different branch or removing location filter
                                     
-                                    Currently using ${eapcetData.length} college records for prediction.`
+                                    Currently using ${TS EAMCETData.length} college records for prediction.`
                                 );
                             }
                         } else {
@@ -567,7 +567,7 @@
                                 <p className="text-black mb-4 text-base">
                                     <strong>Important:</strong> This tool provides <span className="font-semibold">predicted results</span> only.<br/>
                                     It does <span className="font-semibold">not guarantee</span> a seat in any college.<br/>
-                                    All predictions are based solely on official Telangana EAPCET cutoff data.<br/>
+                                    All predictions are based solely on official Telangana TS EAMCET cutoff data.<br/>
                                     Actual seat allotment depends on official counseling and seat availability.
                                 </p>
                                 <button
@@ -596,11 +596,11 @@
                                         </svg>
                                     </div>
                                     <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight">
-                                        <span className="block text-3xl sm:text-5xl md:text-6xl font-bold text-black">EAPCET</span>
+                                        <span className="block text-3xl sm:text-5xl md:text-6xl font-bold text-black">TS EAMCET</span>
                                         <span className="block text-xl sm:text-3xl md:text-4xl font-light mt-2 text-black">College Predictor</span>
                                     </h1>
                                     <div className="w-16 sm:w-24 h-1 bg-yellow-400 mx-auto mb-6"></div>
-                                    <p className="text-lg max-w-3xl mx-auto leading-relaxed mb-6 text-black">Advanced college prediction system powered by official Telangana EAPCET cutoff data. Make informed decisions about your  education with precision analytics.</p>
+                                    <p className="text-lg max-w-3xl mx-auto leading-relaxed mb-6 text-black">Advanced college prediction system powered by official Telangana TS EAMCET cutoff data. Make informed decisions about your  education with precision analytics.</p>
                                     <div className="inline-flex items-center bg-[#8851F7] text-white px-6 py-2 rounded-full font-semibold">
                                         <span className="w-2 h-2 bg-white rounded-full mr-3 animate-pulse"></span>
                                         Developed by Revanth Adepu
@@ -619,7 +619,7 @@
                                         {/* Rank Input */}
                                         <div>
                                                 <label className="block text-sm font-semibold text-primary mb-3 uppercase tracking-wide">
-                                                    EAPCET Rank *
+                                                    TS EAMCET Rank *
                                             </label>
                                             <input
                                                 type="number"
@@ -629,7 +629,7 @@
                                                 required
                                                 min="1"
                                                     className="w-full p-3 rounded-lg border-2 border-[#8851F7] bg-white text-black focus:ring-2 focus:ring-[#8851F7]"
-                                                    placeholder="Enter your EAPCET rank (e.g., 1000)"
+                                                    placeholder="Enter your TS EAMCET rank (e.g., 1000)"
                                             />
                                         </div>
 
@@ -850,7 +850,7 @@
                                                                 <div className="flex-shrink-0 w-8 h-8 bg-[#8851F7] text-white rounded-full flex items-center justify-center font-bold text-sm">1</div>
                                                         <div>
                                                                     <h4 className="text-[#8851F7] font-semibold text-lg mb-2">Input Requirements</h4>
-                                                                    <p className="text-black">Enter your EAPCET rank (e.g., 1000), select your preferred branch, category, and gender. All marked fields are mandatory for accurate predictions.</p>
+                                                                    <p className="text-black">Enter your TS EAMCET rank (e.g., 1000), select your preferred branch, category, and gender. All marked fields are mandatory for accurate predictions.</p>
                                                         </div>
                                                             </div>
                                                             <div className="flex items-start space-x-4">
@@ -869,7 +869,7 @@
                                                                 </div>
                                                             <div className="bg-yellow-400/10 border border-yellow-400/30 p-6 rounded-lg">
                                                                 <h4 className="text-yellow-400 font-bold text-lg mb-2">Data Accuracy</h4>
-                                                                <p className="text-black text-sm">Predictions are based on official Telangana EAPCET 2024 first phase cutoff data. Results are indicative and subject to actual seat availability and counseling procedures.</p>
+                                                                <p className="text-black text-sm">Predictions are based on official Telangana TS EAMCET 2024 first phase cutoff data. Results are indicative and subject to actual seat availability and counseling procedures.</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -965,7 +965,7 @@
                                                 <div className="flex-shrink-0 w-8 h-8 bg-[#8851F7] text-white rounded-full flex items-center justify-center font-bold text-sm">1</div>
                                             <div>
                                                 <h4 className="text-white font-semibold text-lg mb-2">Input Requirements</h4>
-                                                    <p className="text-black">Enter your EAPCET rank (e.g., 1000), select your preferred branch, category, and gender. All marked fields are mandatory for accurate predictions.</p>
+                                                    <p className="text-black">Enter your TS EAMCET rank (e.g., 1000), select your preferred branch, category, and gender. All marked fields are mandatory for accurate predictions.</p>
                                             </div>
                                         </div>
                                         <div className="flex items-start space-x-4">
@@ -986,7 +986,7 @@
                                         </div>
                                         <div className="bg-yellow-400/10 border border-yellow-400/30 p-6 rounded-lg">
                                             <h4 className="text-yellow-400 font-bold text-lg mb-2">Data Accuracy</h4>
-                                                <p className="text-black text-sm">Predictions are based on official Telangana EAPCET 2024 first phase cutoff data. Results are indicative and subject to actual seat availability and counseling procedures.</p>
+                                                <p className="text-black text-sm">Predictions are based on official Telangana TS EAMCET 2024 first phase cutoff data. Results are indicative and subject to actual seat availability and counseling procedures.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -996,7 +996,7 @@
                             {/* Professional Footer */}
                             <footer className="text-center mt-8 sm:mt-12">
                                 <div className="max-w-2xl mx-auto py-6 px-4 rounded-xl bg-white shadow-lg border border-[#8851F7]">
-                                    <h2 className="text-2xl font-bold text-[#8851F7] mb-2">EAPCET College Predictor 2025</h2>
+                                    <h2 className="text-2xl font-bold text-[#8851F7] mb-2">TS EAMCET College Predictor 2025</h2>
                                     <p className="text-sm sm:text-base text-black mb-2 flex items-center justify-center gap-2">
                                         Made with <span className="text-red-500 text-lg">❤️</span> using AI by Revanth Adepu
                                     </p>
@@ -1049,9 +1049,9 @@
     // 🔧 Firebase config (Replace with your own)
     const firebaseConfig = {
           apiKey: "AIzaSyC-rdXiAoJg16m7CC_lIWmKpJVsqIOZVHk",
-          authDomain: "eapcet-college-predictor-63205.firebaseapp.com",
-          projectId: "eapcet-college-predictor-63205",
-          storageBucket: "eapcet-college-predictor-63205.firebasestorage.app",
+          authDomain: "TS EAMCET-college-predictor-63205.firebaseapp.com",
+          projectId: "TS EAMCET-college-predictor-63205",
+          storageBucket: "TS EAMCET-college-predictor-63205.firebasestorage.app",
           messagingSenderId: "5162796699",
           appId: "1:5162796699:web:d1ec081a51fdfebdc5283e",
           measurementId: "G-M09SXDF0XL"
