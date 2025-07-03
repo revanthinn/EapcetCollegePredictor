@@ -1,576 +1,1127 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TS EAMCET College Predictor 2024 | Find Your Best College Match</title>
-    <meta name="description" content="TS EAMCET College Predictor 2024 - Find the best engineering colleges based on your rank. Get accurate predictions for admission chances with our comprehensive database.">
-    <meta name="keywords" content="TS EAMCET, college predictor, engineering colleges, Telangana, admission prediction, rank predictor">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .animate-fade-in { animation: fadeIn 0.6s ease-out; }
-        .animate-slide-up { animation: slideUp 0.8s ease-out; }
-        .animate-bounce-in { animation: bounceIn 0.5s ease-out; }
-        .stagger-1 { animation-delay: 0.1s; }
-        .stagger-2 { animation-delay: 0.2s; }
-        .stagger-3 { animation-delay: 0.3s; }
-        .stagger-4 { animation-delay: 0.4s; }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes bounceIn {
-            0% { opacity: 0; transform: scale(0.3); }
-            50% { opacity: 1; transform: scale(1.05); }
-            70% { transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        
-        .loading-spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #667eea;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-    </style>
+<meta content="Use our free EAPCET college predictor to check which colleges you can get into based on your rank, category, and preferences." name="description"/>
+<link href="https://eapcet-college-predictor.vercel.app/" rel="canonical"/>
+<meta content="EAPCET College Predictor 2025" property="og:title"/>
+<meta content="Check eligible colleges using your EAPCET rank." property="og:description"/>
+<meta content="https://eapcet-college-predictor.vercel.app/" property="og:url"/>
+<meta content="website" property="og:type"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EAPCET College Predictor</title>
+<link href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'&gt;&lt;path fill='%238851F7' d='M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z'/&gt;&lt;/svg&gt;" rel="icon" type="image/svg+xml"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script crossorigin="" src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin="" src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-F6BHQX695T');
+</script>
+<!-- Fonts, Bootstrap, Firebase, Popup-js, and Popup CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js" defer></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore-compat.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js" defer></script>
+<style>
+  body {
+    font-family: 'Urbanist', 'Poppins', 'Inter', 'Segoe UI', 'Roboto', Arial, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ede9fe 0%, #f5f3ff 100%);
+    color: #4f378b;
+    overflow-x: hidden;
+  }
+  #userPopupOverlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(184, 137, 249, 0.25);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 4vh;
+  }
+  #userForm {
+    position: relative;
+    z-index: 2;
+    background: #111;
+    color: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 40px 0 #c4b5fd44, 0 1.5px 4px #a78bfa22;
+    width: fit-content;
+    min-width: 220px;
+    max-width: 100vw;
+    padding: 16px 24px 10px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    border: 2.5px solid #FFD700;
+    border-image: none;
+    animation: none;
+  }
+  #userForm h2 {
+    margin-bottom: 8px;
+    font-weight: 800;
+    font-size: 2.1rem;
+    text-align: center;
+    color: #FFD700 !important;
+    background: none;
+    font-family: 'Urbanist', 'Poppins', 'Inter', 'Segoe UI', 'Roboto', Arial, sans-serif;
+  }
+  .form-subheading {
+    text-align: center;
+    color: #fff !important;
+    font-size: 1.08rem;
+    margin-bottom: 28px;
+    font-weight: 400;
+  }
+  .form-floating {
+    position: relative;
+    margin-bottom: 0;
+  }
+  .form-floating input {
+    padding: 20px 12px 10px 12px;
+    height: 48px;
+    font-size: 1rem;
+    background: #222;
+    color: #fff;
+    border: 1.5px solid #FFD700;
+    border-radius: 2.2rem;
+    outline: none;
+    box-sizing: border-box;
+  }
+  .form-floating label {
+    position: absolute;
+    top: 14px;
+    left: 22px;
+    z-index: 3;
+    color: #FFD700 !important;
+    font-size: 1.08rem;
+    pointer-events: none;
+    background: transparent;
+    transition: 0.2s cubic-bezier(.4,0,.2,1);
+    font-family: 'Urbanist', 'Poppins', 'Inter', 'Segoe UI', 'Roboto', Arial, sans-serif;
+  }
+  .form-floating input:focus + label,
+  .form-floating input:not(:placeholder-shown) + label {
+    top: -8px;
+    left: 18px;
+    font-size: 0.92rem;
+    color: #FFD700;
+    background: transparent;
+  }
+  .submit-btn {
+    width: 100%;
+    padding: 16px 0;
+    background: #FFD700;
+    color: #111;
+    font-size: 1.15rem;
+    font-weight: 800;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 24px 0 #FFD70044, 0 2px 12px #FFD70033;
+    transition: background 0.2s, color 0.2s, transform 0.13s, box-shadow 0.18s;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    letter-spacing: 0.7px;
+    text-shadow: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .submit-btn:hover {
+    background: #FFC300;
+    color: #000;
+    transform: scale(1.045) translateY(-2px);
+    box-shadow: 0 8px 32px 0 #FFD70099, 0 2px 12px #FFD70033;
+    filter: brightness(1.08) saturate(1.2);
+  }
+  @media (max-width: 480px) {
+    #userForm {
+      padding: 18px 8px 14px 8px;
+      min-width: unset;
+      max-width: 98vw;
+    }
+    #userForm h2 {
+      font-size: 1.2rem;
+    }
+  }
+  body:has(#userPopupOverlay[style*='flex']) {
+    overflow: hidden;
+  }
+  .userForm-flex-row {
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+  .userForm-flex-row .form-floating {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .userForm-flex-row input {
+    width: 100%;
+    min-width: 80px;
+    height: 48px;
+    font-size: 1rem;
+  }
+  @media (max-width: 600px) {
+    #userForm {
+      width: 98vw;
+      max-width: 98vw;
+      min-width: unset;
+      padding-left: 6px;
+      padding-right: 6px;
+    }
+    .userForm-flex-row {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .userForm-flex-row .form-floating {
+      min-width: 0;
+    }
+  }
+  .userForm-checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 14px 0 0 0;
+    font-size: 0.98rem;
+    color: #fff;
+  }
+  .userForm-checkbox-row input[type="checkbox"] {
+    accent-color: #FFD700;
+    width: 1.1em;
+    height: 1.1em;
+    margin: 0;
+    vertical-align: middle;
+  }
+  /* 1. Remove white background around college cards on mobile, 2. Black result container full width, 3. College cards responsive */
+  @media (max-width: 640px) {
+    /* Black result container full width */
+    .college-results-mobile-container {
+      background: #111;
+      border-radius: 0;
+      box-shadow: none;
+      width: 100% !important;
+      max-width: 100vw !important;
+      min-width: 0 !important;
+      margin: 0 auto !important;
+      padding-left: 8px !important;
+      padding-right: 8px !important;
+      overflow-x: hidden !important;
+      box-sizing: border-box !important;
+    }
+    /* College cards: full width, no border, responsive, but keep original colors */
+    .college-card-mobile {
+      border-radius: 1rem !important;
+      border: none !important;
+      width: 100% !important;
+      max-width: 100vw !important;
+      min-width: 0 !important;
+      margin: 0 auto 1.25rem auto !important;
+      padding-left: 0.5rem !important;
+      padding-right: 0.5rem !important;
+      overflow-x: hidden !important;
+      box-sizing: border-box !important;
+    }
+    .college-card-mobile:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+  * {
+    box-sizing: border-box !important;
+  }
+  html, body, #root {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+</style>
 </head>
-<body class="bg-[#0f172a] text-white min-h-screen">
-    <!-- Header -->
-    <header class="gradient-bg shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                        <span class="text-2xl font-bold text-indigo-600">🎓</span>
-                    </div>
-                    <div>
-                        <h1 class="text-2xl font-bold text-white">TS EAMCET Predictor</h1>
-                        <p class="text-indigo-100 text-sm">Find Your Perfect College Match</p>
-                    </div>
-                </div>
-                <a href="blog.html" class="bg-white/20 hover:bg-white/30 text-white px-6 py-2 rounded-full font-medium transition-all duration-300 backdrop-blur-sm">
-                    📚 Blog
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="gradient-bg py-16">
-        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 animate-fade-in">
-                TS EAMCET College Predictor 2024
-            </h2>
-            <p class="text-xl text-indigo-100 mb-8 animate-fade-in stagger-1">
-                Discover the best engineering colleges in Telangana based on your TS EAMCET rank. Get accurate admission predictions and make informed decisions about your future.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in stagger-2">
-                <button onclick="scrollToPredictor()" class="bg-white text-indigo-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-indigo-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-                    🚀 Start Prediction
-                </button>
-                <button onclick="scrollToFeatures()" class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-indigo-600 transition-all duration-300">
-                    ✨ Learn More
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="py-16 bg-[#1e293b]">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h3 class="text-3xl font-bold text-white mb-4">Why Choose Our TS EAMCET Predictor?</h3>
-                <p class="text-gray-300 text-lg">Advanced algorithms and comprehensive data for accurate predictions</p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-[#334155] p-8 rounded-2xl text-center card-hover animate-slide-up">
-                    <div class="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <span class="text-2xl">🎯</span>
-                    </div>
-                    <h4 class="text-xl font-semibold text-white mb-4">Accurate Predictions</h4>
-                    <p class="text-gray-300">Based on previous year data and advanced algorithms for precise college admission predictions.</p>
-                </div>
-                
-                <div class="bg-[#334155] p-8 rounded-2xl text-center card-hover animate-slide-up stagger-1">
-                    <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <span class="text-2xl">📊</span>
-                    </div>
-                    <h4 class="text-xl font-semibold text-white mb-4">Comprehensive Database</h4>
-                    <p class="text-gray-300">Complete information about all engineering colleges in Telangana with updated data.</p>
-                </div>
-                
-                <div class="bg-[#334155] p-8 rounded-2xl text-center card-hover animate-slide-up stagger-2">
-                    <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <span class="text-2xl">⚡</span>
-                    </div>
-                    <h4 class="text-xl font-semibold text-white mb-4">Instant Results</h4>
-                    <p class="text-gray-300">Get your college predictions instantly with detailed analysis and admission probability.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Predictor Form -->
-    <section id="predictor" class="py-16 bg-[#0f172a]">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h3 class="text-3xl font-bold text-white mb-4">Enter Your TS EAMCET Details</h3>
-                <p class="text-gray-300 text-lg">Fill in your information to get personalized college predictions</p>
-            </div>
-            
-            <div class="bg-[#1e293b] rounded-2xl p-8 shadow-2xl">
-                <form id="predictorForm" class="space-y-6">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="rank" class="block text-sm font-medium text-gray-300 mb-2">Your TS EAMCET Rank *</label>
-                            <input type="number" id="rank" name="rank" required 
-                                   class="w-full px-4 py-3 bg-[#334155] border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
-                                   placeholder="Enter your rank (e.g., 15000)">
-                            <div id="rankError" class="text-red-400 text-sm mt-1 hidden">Please enter a valid rank</div>
-                        </div>
-                        
-                        <div>
-                            <label for="category" class="block text-sm font-medium text-gray-300 mb-2">Category *</label>
-                            <select id="category" name="category" required 
-                                    class="w-full px-4 py-3 bg-[#334155] border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300">
-                                <option value="">Select Category</option>
-                                <option value="OC">OC (Open Category)</option>
-                                <option value="BC-A">BC-A</option>
-                                <option value="BC-B">BC-B</option>
-                                <option value="BC-C">BC-C</option>
-                                <option value="BC-D">BC-D</option>
-                                <option value="BC-E">BC-E</option>
-                                <option value="SC">SC</option>
-                                <option value="ST">ST</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="gender" class="block text-sm font-medium text-gray-300 mb-2">Gender *</label>
-                            <select id="gender" name="gender" required 
-                                    class="w-full px-4 py-3 bg-[#334155] border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300">
-                                <option value="">Select Gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
-                        </div>
-                        
-                        <div>
-                            <label for="location" class="block text-sm font-medium text-gray-300 mb-2">Preferred Location</label>
-                            <select id="location" name="location" 
-                                    class="w-full px-4 py-3 bg-[#334155] border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300">
-                                <option value="">Any Location</option>
-                                <option value="HYDERABAD">Hyderabad</option>
-                                <option value="WARANGAL">Warangal</option>
-                                <option value="KARIMNAGAR">Karimnagar</option>
-                                <option value="NIZAMABAD">Nizamabad</option>
-                                <option value="KHAMMAM">Khammam</option>
-                                <option value="NALGONDA">Nalgonda</option>
-                                <option value="MEDAK">Medak</option>
-                                <option value="RANGAREDDY">Rangareddy</option>
-                                <option value="MAHABUBNAGAR">Mahabubnagar</option>
-                                <option value="ADILABAD">Adilabad</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label for="branch" class="block text-sm font-medium text-gray-300 mb-2">Preferred Branch</label>
-                        <select id="branch" name="branch" 
-                                class="w-full px-4 py-3 bg-[#334155] border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300">
-                            <option value="">Any Branch</option>
-                            <option value="COMPUTER SCIENCE AND ENGINEERING">Computer Science and Engineering</option>
-                            <option value="ELECTRONICS AND COMMUNICATION ENGINEERING">Electronics and Communication Engineering</option>
-                            <option value="ELECTRICAL AND ELECTRONICS ENGINEERING">Electrical and Electronics Engineering</option>
-                            <option value="MECHANICAL ENGINEERING">Mechanical Engineering</option>
-                            <option value="CIVIL ENGINEERING">Civil Engineering</option>
-                            <option value="CHEMICAL ENGINEERING">Chemical Engineering</option>
-                            <option value="INFORMATION TECHNOLOGY">Information Technology</option>
-                            <option value="BIOTECHNOLOGY">Biotechnology</option>
-                            <option value="AERONAUTICAL ENGINEERING">Aeronautical Engineering</option>
-                            <option value="AUTOMOBILE ENGINEERING">Automobile Engineering</option>
-                        </select>
-                    </div>
-                    
-                    <button type="submit" id="predictBtn" 
-                            class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 px-8 rounded-lg font-semibold text-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                        <span id="predictBtnText">🔮 Predict My Colleges</span>
-                        <div id="loadingSpinner" class="loading-spinner mx-auto hidden"></div>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Results Section -->
-    <section id="results" class="py-16 bg-[#0f172a] hidden">
-        <div class="w-full px-2">
-            <div class="max-w-screen-sm mx-auto">
-                <div id="resultsContent" class="space-y-4">
-                    <!-- Results will be populated here -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-[#1e293b] py-12">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div class="md:col-span-2">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
-                            <span class="text-xl font-bold text-white">🎓</span>
-                        </div>
-                        <h4 class="text-xl font-bold text-white">TS EAMCET Predictor</h4>
-                    </div>
-                    <p class="text-gray-300 mb-4">Your trusted companion for TS EAMCET college predictions. Make informed decisions about your engineering career with our accurate and comprehensive prediction system.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">📧</a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">📱</a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">🌐</a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h5 class="text-lg font-semibold text-white mb-4">Quick Links</h5>
-                    <ul class="space-y-2">
-                        <li><a href="#predictor" class="text-gray-300 hover:text-white transition-colors duration-300">College Predictor</a></li>
-                        <li><a href="#features" class="text-gray-300 hover:text-white transition-colors duration-300">Features</a></li>
-                        <li><a href="blog.html" class="text-gray-300 hover:text-white transition-colors duration-300">Blog</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">About Us</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h5 class="text-lg font-semibold text-white mb-4">Resources</h5>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">TS EAMCET Info</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">College Rankings</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">Admission Process</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">FAQ</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-                <p class="text-gray-400">&copy; 2024 TS EAMCET Predictor. All rights reserved. | Made with ❤️ for aspiring engineers</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        let collegeData = [];
+<body class="min-h-screen w-full" style="background:#B889F9; color:#8851F7;">
+<div class="w-full flex justify-between items-center gap-2 px-4 py-2" style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.85);backdrop-filter:blur(6px);">
+<span class="font-extrabold text-xl sm:text-2xl" style="color:#8851F7;letter-spacing:0.5px;">EAPCET Predictor</span>
+<a class="inline-block bg-[#8851F7] hover:bg-[#B889F9] text-white font-bold px-5 py-2 rounded-full shadow transition" href="/blog.html" rel="noopener noreferrer" style="text-decoration: none;" target="_blank">
+            Blog
+        </a>
+</div>
+<div id="root"></div>
+<script type="text/babel">
+        const { useState, useEffect } = React;
         
-        // Load CSV data
-        async function loadCollegeData() {
-            try {
-                const response = await fetch('TGPEAPCET2024FIRSTPHASELASTRANKS.csv');
-                const csvText = await response.text();
+        const genders = [
+            { value: "Male", label: "Male" },
+            { value: "Female", label: "Female" },
+        ];
+
+        const categories = ["OC", "BC-A", "BC-B", "BC-C", "BC-D", "BC-E", "SC", "ST", "EWS"];
+
+        function App() {
+            const [eapcetData, setEapcetData] = useState([]);
+            const [branches, setBranches] = useState([]);
+            const [places, setPlaces] = useState([]);
+            const [results, setResults] = useState([]);
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState("");
+            const [dataLoaded, setDataLoaded] = useState(false);
+            const [showDisclaimer, setShowDisclaimer] = useState(true);
+            const [form, setForm] = useState({
+                rank: "",
+                branch: "",
+                category: "",
+                gender: "Male",
+                place: "",
+            });
+            const [currentPage, setCurrentPage] = useState(1);
+            const rowsPerPage = 10;
+            const [hasSearched, setHasSearched] = useState(false);
+
+            // Function to calculate admission chances based on rank difference
+            const calculateAdmissionChances = (userRank, collegeRank) => {
+                // Calculate how much better the user's rank is compared to college closing rank
+                // If college closing rank is HIGHER than user rank, user has better chances
+                const rankDifference = collegeRank - userRank;
                 
-                Papa.parse(csvText, {
-                    header: true,
-                    complete: function(results) {
-                        collegeData = results.data.filter(row => 
-                            row['COLLEGE NAME'] && 
-                            row['COLLEGE NAME'].trim() !== '' &&
-                            row['LAST RANK'] && 
-                            !isNaN(parseInt(row['LAST RANK']))
+                // If college closing rank is higher (worse) than user rank, user has good chances
+                if (rankDifference > 0) {
+                    // College closing rank is higher than user rank = Good chances
+                    if (rankDifference >= 1000) {
+                        return { level: "Excellent", percentage: "95%+", color: "bg-green-600", textColor: "text-green-600" };
+                    } else if (rankDifference >= 500) {
+                        return { level: "Very High", percentage: "90-95%", color: "bg-green-500", textColor: "text-green-500" };
+                    } else if (rankDifference >= 200) {
+                        return { level: "High", percentage: "80-90%", color: "bg-green-400", textColor: "text-green-400" };
+                    } else if (rankDifference >= 50) {
+                        return { level: "Good", percentage: "70-80%", color: "bg-yellow-400", textColor: "text-yellow-400" };
+                    } else {
+                        return { level: "Moderate", percentage: "60-70%", color: "bg-orange-400", textColor: "text-orange-400" };
+                    }
+                } else if (rankDifference === 0) {
+                    // User rank equals college closing rank
+                    return { level: "Fair", percentage: "50-60%", color: "bg-orange-500", textColor: "text-orange-500" };
+                } else {
+                    // College closing rank is lower (better) than user rank = Lower chances
+                    const absDifference = Math.abs(rankDifference);
+                    if (absDifference <= 100) {
+                        return { level: "Low", percentage: "30-50%", color: "bg-red-400", textColor: "text-red-400" };
+                    } else if (absDifference <= 300) {
+                        return { level: "Very Low", percentage: "15-30%", color: "bg-red-500", textColor: "text-red-500" };
+                    } else if (absDifference <= 500) {
+                        return { level: "Unlikely", percentage: "5-15%", color: "bg-red-600", textColor: "text-red-600" };
+                    } else {
+                        return { level: "No Chance", percentage: "<5%", color: "bg-gray-600", textColor: "text-gray-400" };
+                    }
+                }
+            };
+
+            // Function to get the correct rank column name
+            const getRankColumn = (category, gender) => {
+                const genderSuffix = gender === "Male" ? "BOYS" : "GIRLS";
+
+                switch (category) {
+                    case "OC":
+                        return `OC ${genderSuffix}`;
+                    case "BC-A":
+                        return `BC_A ${genderSuffix}`;
+                    case "BC-B":
+                        return `BC_B ${genderSuffix}`;
+                    case "BC-C":
+                        return `BC_C ${genderSuffix}`;
+                    case "BC-D":
+                        return `BC_D ${genderSuffix}`;
+                    case "BC-E":
+                        return `BC_E ${genderSuffix}`;
+                    case "SC":
+                        return `SC ${genderSuffix}`;
+                    case "ST":
+                        return `ST ${genderSuffix}`;
+                    case "EWS":
+                        return gender === "Male" ? "EWS GEN OU" : "EWS GIRLS OU";
+                    default:
+                        return `OC ${genderSuffix}`;
+                }
+            };
+
+            // Function to find eligible colleges with simple prediction
+            const findEligibleColleges = (userRank, branch, category, gender, place) => {
+                const rankColumn = getRankColumn(category, gender);
+
+                const findRankValue = (row) => {
+                    const normalizedRankColumn = rankColumn.replace(/\s+/g, " ").trim().toLowerCase();
+                    for (const key of Object.keys(row)) {
+                        const normalizedKey = key.replace(/\s+/g, " ").trim().toLowerCase();
+                        if (normalizedKey === normalizedRankColumn) {
+                            return row[key];
+                        }
+                    }
+                    return null;
+                };
+
+                const eligibleColleges = eapcetData
+                    .filter((row) => {
+                        if (!row || typeof row !== "object") return false;
+
+                        // Branch match
+                        let branchMatch = false;
+                        const branchCol = Object.keys(row).find(
+                            (k) => k.replace(/\s+/g, " ").toLowerCase().includes("branch name")
                         );
-                        console.log('Loaded college data:', collegeData.length, 'records');
-                    },
-                    error: function(error) {
-                        console.error('Error parsing CSV:', error);
-                    }
-                });
-            } catch (error) {
-                console.error('Error loading CSV file:', error);
-            }
-        }
-        
-        // Initialize data loading
-        loadCollegeData();
-        
-        // Form submission
-        document.getElementById('predictorForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const rank = parseInt(document.getElementById('rank').value);
-            const category = document.getElementById('category').value;
-            const gender = document.getElementById('gender').value;
-            const location = document.getElementById('location').value;
-            const branch = document.getElementById('branch').value;
-            
-            // Validation
-            if (!rank || rank <= 0) {
-                showError('rankError', 'Please enter a valid rank');
-                return;
-            }
-            
-            if (!category || !gender) {
-                alert('Please fill in all required fields');
-                return;
-            }
-            
-            // Show loading
-            showLoading(true);
-            
-            // Simulate processing time
-            setTimeout(() => {
-                const predictions = predictColleges(rank, category, gender, location, branch);
-                displayResults(predictions, rank);
-                showLoading(false);
-                scrollToResults();
-            }, 1500);
-        });
-        
-        function predictColleges(userRank, category, gender, location, branch) {
-            let eligibleColleges = [];
-            
-            // Calculate prediction range (25% below user rank)
-            const minRank = Math.floor(userRank * 0.75);
-            
-            collegeData.forEach(college => {
-                const lastRank = parseInt(college['LAST RANK']);
-                
-                if (lastRank >= minRank) {
-                    // Apply filters
-                    let matches = true;
-                    
-                    if (location && college['DISTRICT'] && 
-                        !college['DISTRICT'].toUpperCase().includes(location.toUpperCase())) {
-                        matches = false;
-                    }
-                    
-                    if (branch && college['BRANCH'] && 
-                        !college['BRANCH'].toUpperCase().includes(branch.toUpperCase())) {
-                        matches = false;
-                    }
-                    
-                    if (matches) {
-                        // Calculate admission probability
-                        let probability = 'Low';
-                        let probabilityClass = 'bg-red-600';
-                        let probabilityPercent = '<25%';
-                        
-                        if (userRank <= lastRank * 0.7) {
-                            probability = 'Excellent';
-                            probabilityClass = 'bg-green-600';
-                            probabilityPercent = '95%+';
-                        } else if (userRank <= lastRank * 0.85) {
-                            probability = 'Good';
-                            probabilityClass = 'bg-orange-500';
-                            probabilityPercent = '70-95%';
-                        } else if (userRank <= lastRank) {
-                            probability = 'Moderate';
-                            probabilityClass = 'bg-yellow-600';
-                            probabilityPercent = '40-70%';
+                        if (branchCol && row[branchCol] && row[branchCol].toString() === branch) {
+                            branchMatch = true;
+                        }
+
+                        // Place match
+                        let placeMatch = true;
+                        if (place) {
+                            placeMatch = false;
+                            const placeColumns = ["Place", "PLACE", "Location", "LOCATION", "District", "DISTRICT"];
+                            for (const col of placeColumns) {
+                                if (row[col] && row[col].toString().toLowerCase().includes(place.toLowerCase())) {
+                                    placeMatch = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        // Rank check: 25% below user rank
+                        const collegeRank = Number(findRankValue(row));
+                        const minRank = Math.floor(userRank * 0.75);
+                        const rankEligible = collegeRank && collegeRank > 0 && collegeRank >= minRank;
+
+                        return branchMatch && placeMatch && rankEligible;
+                    })
+                    .map((row) => {
+                        const collegeRank = Number(findRankValue(row) || 0);
+                        const admissionChances = calculateAdmissionChances(userRank, collegeRank);
+                        // Fee extraction: robust to whitespace/case
+                        const getFee = (row) => {
+                            const feeKey = Object.keys(row).find(
+                                k => k.replace(/\s+/g, '').toLowerCase() === 'tuitionfee' || k.replace(/\s+/g, '').toLowerCase() === 'fee' || k.replace(/\s+/g, '').toLowerCase() === 'fees'
+                            );
+                            return row[feeKey] ? `₹${row[feeKey]}` : 'Not Available';
+                        };
+                        return {
+                            "Institute Code": row["Inst\n Code"] || row["Inst Code"] || row["Institute Code"] || "N/A",
+                            "Institute Name": row["Institute Name"] || row["Institute"] || row["College"] || "Unknown Institute",
+                            Place: row["Place"] || row["PLACE"] || row["Location"] || "Unknown Location",
+                            "Branch Name": row["Branch Name"] || row["Branch"] || row["Course"] || "Unknown Branch",
+                            "Closing Rank": collegeRank,
+                            Fee: getFee(row),
+                            "Admission Chances": admissionChances,
+                            Affiliation: row["Affiliated To"] || row["Affiliation"] || row["AffiliatedTo"] || "-",
+                        };
+                    })
+                    .sort((a, b) => a["Closing Rank"] - b["Closing Rank"]);
+
+                return { colleges: eligibleColleges };
+            };
+
+            useEffect(() => {
+                const loadData = async () => {
+                    console.log("loadData called");
+                    try {
+                        setDataLoaded(false);
+                        setError("");
+                        setEapcetData([]);
+                        setBranches([]);
+                        setPlaces([]);
+
+                        const response = await fetch("./TGPEAPCET2024FIRSTPHASELASTRANKS.csv");
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        const csvText = await response.text();
+                        if (csvText.length < 100) {
+                            throw new Error("CSV file appears to be empty or too small");
                         }
                         
-                        eligibleColleges.push({
-                            ...college,
-                            probability,
-                            probabilityClass,
-                            probabilityPercent,
-                            lastRank
+                        // Fix: skip first two rows, use correct header row
+                        const csvLines = csvText.split(/\r?\n/);
+                        // Find the first line that contains 'Branch Name' and 'Place' (header row)
+                        let headerIdx = csvLines.findIndex(line => /Branch Name/i.test(line) && /Place/i.test(line));
+                        if (headerIdx === -1) headerIdx = 1; // fallback
+                        const csvData = csvLines.slice(headerIdx).join('\n');
+                        const parsed = Papa.parse(csvData, {
+                            header: true,
+                            skipEmptyLines: true
                         });
+                        const dataRows = parsed.data;
+                        // Use exact header names as in the CSV
+                        const branchCol = 'Branch Name';
+                        const placeCol = 'Place';
+                        let realBranches = [];
+                        if (branchCol) {
+                            realBranches = [...new Set(dataRows.map(row => row[branchCol]?.trim()).filter(Boolean))];
+                        }
+                        let realPlaces = [];
+                        if (placeCol) {
+                            realPlaces = [...new Set(dataRows.map(row => row[placeCol]?.trim()).filter(Boolean))];
+                        }
+                        setEapcetData(dataRows);
+                            if (realBranches.length > 0) {
+                                setBranches(realBranches);
+                            }
+                            if (realPlaces.length > 0) {
+                                setPlaces(realPlaces);
+                        }
+                        setDataLoaded(true);
+                    } catch (err) {
+                        setError(`CSV loading failed: ${err.message}. Please ensure the CSV file is present and accessible.`);
+                        setDataLoaded(false);
                     }
+                };
+                loadData();
+            }, []);
+
+            const handleChange = (e) => {
+                setForm({ ...form, [e.target.name]: e.target.value });
+            };
+
+            const handleSubmit = async (e) => {
+                if (e && e.preventDefault) e.preventDefault();
+
+                if (!dataLoaded) {
+                    setError("Data is still loading. Please wait...");
+                    return;
                 }
-            });
-            
-            // Sort by last rank (ascending)
-            eligibleColleges.sort((a, b) => a.lastRank - b.lastRank);
-            
-            return eligibleColleges.slice(0, 50); // Limit to top 50 results
-        }
-        
-        function displayResults(colleges, userRank) {
-            const resultsSection = document.getElementById('results');
-            const resultsContent = document.getElementById('resultsContent');
-            
-            if (colleges.length === 0) {
-                resultsContent.innerHTML = `
-                    <div class="bg-[#1e293b] rounded-xl p-8 text-center">
-                        <div class="text-6xl mb-4">😔</div>
-                        <h3 class="text-2xl font-bold text-white mb-4">No Colleges Found</h3>
-                        <p class="text-gray-300">No colleges found matching your criteria. Try adjusting your preferences or check your rank.</p>
-                    </div>
-                `;
-            } else {
-                const minRank = Math.floor(userRank * 0.75);
-                
-                resultsContent.innerHTML = `
-                    <div class="bg-[#1e293b] rounded-xl p-4 mb-6">
-                        <h2 class="text-2xl font-bold text-white mb-2">Eligible Colleges (${colleges.length})</h2>
-                        <p class="text-gray-300 mb-4">Based on your rank and preferences</p>
-                        <div class="bg-[#334155] rounded-lg p-4 border border-gray-600">
-                            <p class="text-blue-300 font-medium">Prediction Range:</p>
-                            <p class="text-gray-300">Showing colleges with closing ranks from <span class="text-yellow-400 font-bold">${minRank}</span> onwards (25% below your rank of ${userRank})</p>
-                        </div>
-                    </div>
-                    
-                    ${colleges.map((college, index) => `
-                        <div class="bg-[#1e293b] rounded-xl p-4 mb-4 animate-fade-in stagger-${Math.min(index + 1, 4)} card-hover">
-                            <div class="space-y-2">
-                                <div class="flex flex-wrap items-start justify-between gap-2">
-                                    <h3 class="text-lg font-bold text-white leading-tight">${college['COLLEGE NAME'] || 'N/A'}</h3>
-                                </div>
-                                
-                                <div class="flex items-center gap-2 text-gray-300">
-                                    <span class="text-blue-400">📍</span>
-                                    <span class="text-sm">${college['DISTRICT'] || 'N/A'}</span>
-                                </div>
-                                
-                                <div class="flex items-center gap-2 text-gray-300">
-                                    <span class="text-purple-400">🎓</span>
-                                    <span class="text-sm">${college['BRANCH'] || 'N/A'}</span>
-                                </div>
-                                
-                                <div class="flex flex-wrap items-center gap-2 mt-3">
-                                    <span class="bg-yellow-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-                                        Rank: ${college['LAST RANK'] || 'N/A'}
-                                    </span>
-                                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-                                        ₹${college['FEE'] || 'N/A'}
-                                    </span>
-                                </div>
-                                
-                                <div class="flex items-center justify-between mt-3">
-                                    <div class="flex items-center gap-2">
-                                        <span class="${college.probabilityClass} text-white px-3 py-1 rounded-full text-sm font-medium">
-                                            ${college.probability}
-                                        </span>
-                                        <span class="text-gray-400 text-sm">${college.probabilityPercent}</span>
-                                    </div>
-                                    <span class="text-gray-400 text-sm">Admission Probability</span>
-                                </div>
+
+                setError("");
+                setResults([]);
+                setLoading(true);
+
+                // Simulate processing delay
+                setTimeout(() => {
+                    try {
+                        const rank = Number.parseInt(form.rank);
+                        if (rank && rank > 0 && form.branch && form.category) {
+                            console.log("Starting prediction with:", {
+                                rank,
+                                branch: form.branch,
+                                category: form.category,
+                                gender: form.gender,
+                                place: form.place,
+                            });
+
+                            const { colleges } = findEligibleColleges(rank, form.branch, form.category, form.gender, form.place);
+
+                            setResults(colleges);
+                            setCurrentPage(1); // Reset to first page on new search
+                            setHasSearched(true); // Mark that a search has been performed
+
+                            if (colleges.length === 0) {
+                                const placeText = form.place ? ` in ${form.place}` : "";
+                                setError(
+                                    `No colleges found for rank ${rank} in ${form.branch} under ${form.category} category for ${form.gender}${placeText}. This could be because:
+                                    1. Your rank might be too high for the selected branch
+                                    2. The CSV data might not contain matching records
+                                    3. Try selecting a different branch or removing location filter
+                                    
+                                    Currently using ${eapcetData.length} college records for prediction.`
+                                );
+                            }
+                        } else {
+                            setError("Please fill all required fields with valid data.");
+                        }
+                    } catch (err) {
+                        console.error("Error processing request:", err);
+                        setError("Error processing your request. Please try again.");
+                    }
+                    setLoading(false);
+                }, 1000);
+            };
+
+            const handleClearPlaceFilter = () => {
+                setForm({ ...form, place: "" });
+            };
+
+            const totalPages = Math.ceil(results.length / rowsPerPage);
+            const paginatedResults = results.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+
+            return (
+                <div className="min-h-screen relative">
+                    {/* Disclaimer Modal */}
+                    {showDisclaimer && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
+                            <div className="bg-[#8851F7] border-2 border-black rounded-xl shadow-2xl max-w-md w-full mx-4 p-6 text-center text-black">
+                                <h2 className="text-2xl font-bold text-black mb-4">Disclaimer</h2>
+                                <p className="text-black mb-4 text-base">
+                                    <strong>Important:</strong> This tool provides <span className="font-semibold">predicted results</span> only.<br/>
+                                    It does <span className="font-semibold">not guarantee</span> a seat in any college.<br/>
+                                    All predictions are based solely on official Telangana EAPCET cutoff data.<br/>
+                                    Actual seat allotment depends on official counseling and seat availability.
+                                </p>
+                                <button
+                                    className="mt-2 px-6 py-2 bg-white hover:bg-[#B889F9] text-black font-bold rounded-lg text-base transition-all duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-black"
+                                    onClick={() => setShowDisclaimer(false)}
+                                >
+                                    I Understand
+                                </button>
                             </div>
                         </div>
-                    `).join('')}
-                `;
-            }
-            
-            resultsSection.classList.remove('hidden');
+                    )}
+
+                    {/* Main Content */}
+                    <div className="relative z-10 py-6 px-2 sm:py-8 sm:px-4 md:px-8">
+                        <div className="max-w-7xl mx-auto">
+                            {/* Professional Header Section */}
+                            <div className="text-center mb-8 md:mb-12">
+                                <div className="mb-8">
+                                    <div className="inline-flex items-center justify-center w-20 h-20 bg-[#8851F7] rounded-full mb-6">
+                                        <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                            <path
+                                                fillRule="evenodd"
+                                                d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"
+                                                clipRule="evenodd"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight">
+                                        <span className="block text-3xl sm:text-5xl md:text-6xl font-bold text-black">EAPCET</span>
+                                        <span className="block text-xl sm:text-3xl md:text-4xl font-light mt-2 text-black">College Predictor</span>
+                                    </h1>
+                                    <div className="w-16 sm:w-24 h-1 bg-yellow-400 mx-auto mb-6"></div>
+                                    <p className="text-lg max-w-3xl mx-auto leading-relaxed mb-6 text-black">Advanced college prediction system powered by official Telangana EAPCET cutoff data. Make informed decisions about your  education with precision analytics.</p>
+                                    <div className="inline-flex items-center bg-[#8851F7] text-white px-6 py-2 rounded-full font-semibold">
+                                        <span className="w-2 h-2 bg-white rounded-full mr-3 animate-pulse"></span>
+                                        Developed by Revanth Adepu
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Professional Form Card */}
+                            <div className="w-full max-w-6xl mx-auto p-4">
+                                <div className="bg-white rounded-xl shadow-xl p-8 mb-8">
+                                    {/* Prediction Parameters Form */}
+                                    <h2 className="text-2xl font-bold mb-2 text-black">Prediction Parameters</h2>
+                                    <p className="mb-6 text-black">Enter your details to find eligible colleges</p>
+                                    <form className="space-y-6 sm:space-y-8" onSubmit={handleSubmit}>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                                        {/* Rank Input */}
+                                        <div>
+                                                <label className="block text-sm font-semibold text-primary mb-3 uppercase tracking-wide">
+                                                    EAPCET Rank *
+                                            </label>
+                                            <input
+                                                type="number"
+                                                name="rank"
+                                                value={form.rank}
+                                                onChange={handleChange}
+                                                required
+                                                min="1"
+                                                    className="w-full p-3 rounded-lg border-2 border-[#8851F7] bg-white text-black focus:ring-2 focus:ring-[#8851F7]"
+                                                    placeholder="Enter your EAPCET rank (e.g., 1000)"
+                                            />
+                                        </div>
+
+                                        {/* Branch Select */}
+                                        <div>
+                                                <label className="block text-sm font-semibold text-primary mb-3 uppercase tracking-wide">
+                                                Branch *
+                                            </label>
+                                            <select
+                                                name="branch"
+                                                value={form.branch}
+                                                onChange={handleChange}
+                                                required
+                                                    className="w-full p-3 rounded-lg border-2 border-[#8851F7] bg-white text-black focus:ring-2 focus:ring-[#8851F7]"
+                                            >
+                                                <option value="">Select Branch</option>
+                                                {branches.map((branch) => (
+                                                    <option key={branch} value={branch}>
+                                                        {branch}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+
+                                        {/* Category Select */}
+                                        <div>
+                                                <label className="block text-sm font-semibold text-primary mb-3 uppercase tracking-wide">
+                                                Category *
+                                            </label>
+                                            <select
+                                                name="category"
+                                                value={form.category}
+                                                onChange={handleChange}
+                                                required
+                                                    className="w-full p-3 rounded-lg border-2 border-[#8851F7] bg-white text-black focus:ring-2 focus:ring-[#8851F7]"
+                                            >
+                                                <option value="">Select Category</option>
+                                                {categories.map((category) => (
+                                                    <option key={category} value={category}>
+                                                        {category}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+
+                                        {/* Gender Select */}
+                                        <div>
+                                                <label className="block text-sm font-semibold text-primary mb-3 uppercase tracking-wide">
+                                                Gender *
+                                            </label>
+                                            <select
+                                                name="gender"
+                                                value={form.gender}
+                                                onChange={handleChange}
+                                                required
+                                                    className="w-full p-3 rounded-lg border-2 border-[#8851F7] bg-white text-black focus:ring-2 focus:ring-[#8851F7]"
+                                            >
+                                                {genders.map((gender) => (
+                                                    <option key={gender.value} value={gender.value}>
+                                                        {gender.label}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+
+                                        {/* Place Select */}
+                                        <div className="sm:col-span-2 lg:col-span-1">
+                                                <label className="block text-sm font-semibold text-primary mb-3 uppercase tracking-wide">
+                                                Location Filter
+                                                {form.place && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={handleClearPlaceFilter}
+                                                        className="ml-3 text-xs bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded-full transition-all duration-200 font-medium"
+                                                    >
+                                                        Clear
+                                                    </button>
+                                                )}
+                                            </label>
+                                            <select
+                                                name="place"
+                                                value={form.place}
+                                                onChange={handleChange}
+                                                    className="w-full p-3 rounded-lg border-2 border-[#8851F7] bg-white text-black focus:ring-2 focus:ring-[#8851F7]"
+                                            >
+                                                <option value="">All Locations</option>
+                                                {places.map((place) => (
+                                                    <option key={place} value={place}>
+                                                        {place}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    {/* Submit Button */}
+                                    <div className="text-center pt-4">
+                                        <button
+                                            type="submit"
+                                            disabled={loading || !dataLoaded}
+                                                className="w-full py-3 rounded-lg bg-[#8851F7] text-white font-bold hover:bg-[#B889F9] transition"
+                                        >
+                                            {!dataLoaded ? (
+                                                <div className="flex items-center justify-center">
+                                                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-black mr-3"></div>
+                                                    Loading Data...
+                                                </div>
+                                            ) : loading ? (
+                                                <div className="flex items-center justify-center">
+                                                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-black mr-3"></div>
+                                                    Analyzing...
+                                                </div>
+                                            ) : (
+                                                "Generate Predictions"
+                                            )}
+                                        </button>
+                                </div>
+                            </form>
+                                        </div>
+                                <div className="bg-white rounded-xl shadow-xl p-8 mb-8">
+                                    {/* Show No Colleges Found message immediately after form, before results and System Guide */}
+                                    {hasSearched && results.length === 0 && !loading && dataLoaded && (
+                                        <div className="w-full max-w-xl mx-auto bg-white border border-[#8851F7] rounded-xl shadow-md p-6 mt-8 text-center">
+                                            <h3 className="text-xl font-bold text-[#8851F7] mb-2">No colleges found</h3>
+                                            <p className="text-black">
+                                                Sorry, we couldn't find any eligible colleges for your criteria.<br/>
+                                                Try changing your rank, branch, category, or location filter and search again.
+                                            </p>
+                                </div>
+                            )}
+                                    {/* Results Section - moved here to appear immediately after Generate Predictions */}
+                            {results.length > 0 && (
+                                        <div className="bg-gray-900 border border-yellow-400/20 rounded-lg shadow-2xl p-2 sm:p-8 mt-8">
+                                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
+                                        <div>
+                                            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">Eligible Colleges ({results.length})</h2>
+                                            <p className="text-gray-400 text-sm sm:text-base">Based on your rank and preferences</p>
+                                            <div className="mt-2 p-3 bg-blue-900/20 border border-blue-500/30 rounded-lg">
+                                                <p className="text-blue-300 text-sm">
+                                                    <strong>Prediction Range:</strong> [Prediction starts from 25% below of your rank]
+                                                </p>
+                                            </div>
+                                        </div>
+                                        {form.place && (
+                                            <div className="flex items-center bg-yellow-400 text-black px-4 py-2 rounded-md font-semibold text-xs sm:text-base">
+                                                <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                                                        clipRule="evenodd"
+                                                    /></svg>
+                                                {form.place}
+                                            </div>
+                                        )}
+                                    </div>
+                                            {/* Mobile: Cards + System Guide, full width, no horizontal scroll */}
+                                            <div className="block sm:hidden w-full px-0 college-results-mobile-container">
+                                                {paginatedResults.map((row, idx) => (
+                                                    <div
+                                                        key={idx}
+                                                        className="bg-[#8851F7] rounded-xl shadow-md p-4 mb-4 flex flex-col gap-2 border border-[#8851F7] college-card-mobile"
+                                                    >
+                                                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                                                            <span className="font-extrabold text-lg sm:text-xl text-[#232e5c] tracking-wide">{row["Institute Code"]}</span>
+                                                            <span className="font-bold text-white text-base sm:text-lg">{row["Institute Name"]}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2 text-white text-sm mb-1 flex-wrap">
+                                                            <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a6 6 0 016 6c0 4.418-6 10-6 10S4 12.418 4 8a6 6 0 016-6zm0 8a2 2 0 100-4 2 2 0 000 4z"/></svg>
+                                                                {row["Place"]}
+                                                            </div>
+                                                        <div className="flex items-center gap-2 text-white text-sm mb-1 flex-wrap">
+                                                            <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12v10H4V5zm2 2v2h2V7H6zm0 4v2h2v-2H6zm4-4v2h2V7h-2zm0 4v2h2v-2h-2z"/></svg>
+                                                                {row["Branch Name"]}
+                                                            </div>
+                                                        <div className="flex items-center gap-3 mt-2 flex-wrap">
+                                                            <span className="inline-block bg-yellow-400 text-black rounded px-3 py-1 text-xs font-bold">Rank: {row["Closing Rank"]}</span>
+                                                            <span className="inline-block bg-red-600 text-white rounded px-3 py-1 text-xs font-bold">{row["Fee"]}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-3 mt-2 flex-wrap">
+                                                            <span className="inline-block rounded px-3 py-1 text-xs font-bold bg-[#232e5c] text-white">
+                                                                        {row["Admission Chances"].level}
+                                                                    </span>
+                                                            <span className="inline-block text-xs font-semibold text-[#b3c6ff]">{row["Admission Chances"].percentage}</span>
+                                                                </div>
+                                                    </div>
+                                                ))}
+                                                {/* Pagination Controls */}
+                                                <div className="flex flex-wrap justify-center items-center mt-4 gap-2 w-full">
+                                                    <button
+                                                        className="px-3 py-1 rounded bg-[#B889F9] text-black font-bold disabled:opacity-50"
+                                                        onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                                                        disabled={currentPage === 1}
+                                                    >
+                                                        Previous
+                                                    </button>
+                                                    {[...Array(totalPages)].map((_, idx) => (
+                                                        <button
+                                                            key={idx}
+                                                            className={`px-3 py-1 rounded ${currentPage === idx + 1 ? 'bg-[#8851F7] text-white' : 'bg-white text-black'} font-bold`}
+                                                            onClick={() => setCurrentPage(idx + 1)}
+                                                        >
+                                                            {idx + 1}
+                                                        </button>
+                                                    ))}
+                                                    <button
+                                                        className="px-3 py-1 rounded bg-[#B889F9] text-black font-bold disabled:opacity-50"
+                                                        onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                                                        disabled={currentPage === totalPages}
+                                                    >
+                                                        Next
+                                                    </button>
+                                        </div>
+                                            </div>
+                                            {/* System Guide for mobile, full width */}
+                                            <div className="block sm:hidden w-full px-0">
+                                                <div className="bg-white rounded-xl shadow-xl p-4 mt-8 mx-2">
+                                                    <h2 className="text-2xl font-bold mb-4 text-black">System Guide</h2>
+                                                    <div className="grid gap-8">
+                                                        <div className="space-y-6">
+                                                            <div className="flex items-start space-x-4">
+                                                                <div className="flex-shrink-0 w-8 h-8 bg-[#8851F7] text-white rounded-full flex items-center justify-center font-bold text-sm">1</div>
+                                                        <div>
+                                                                    <h4 className="text-[#8851F7] font-semibold text-lg mb-2">Input Requirements</h4>
+                                                                    <p className="text-black">Enter your EAPCET rank (e.g., 1000), select your preferred branch, category, and gender. All marked fields are mandatory for accurate predictions.</p>
+                                                        </div>
+                                                            </div>
+                                                            <div className="flex items-start space-x-4">
+                                                                <div className="flex-shrink-0 w-8 h-8 bg-[#8851F7] text-white rounded-full flex items-center justify-center font-bold text-sm">2</div>
+                                                                <div>
+                                                                    <h4 className="text-[#8851F7] font-semibold text-lg mb-2">Location Filtering</h4>
+                                                                    <p className="text-black">Optionally filter results by specific locations. Leave blank to view all eligible institutions across Telangana.</p>
+                                                            </div>
+                                                        </div>
+                                                            <div className="flex items-start space-x-4">
+                                                                <div className="flex-shrink-0 w-8 h-8 bg-[#8851F7] text-white rounded-full flex items-center justify-center font-bold text-sm">3</div>
+                                                                <div>
+                                                                    <h4 className="text-[#8851F7] font-semibold text-lg mb-2">Results Analysis</h4>
+                                                                    <p className="text-black">Review eligible colleges sorted by closing rank. Compare fees, locations, and institute codes to make informed decisions.</p>
+                                                        </div>
+                                                                </div>
+                                                            <div className="bg-yellow-400/10 border border-yellow-400/30 p-6 rounded-lg">
+                                                                <h4 className="text-yellow-400 font-bold text-lg mb-2">Data Accuracy</h4>
+                                                                <p className="text-black text-sm">Predictions are based on official Telangana EAPCET 2024 first phase cutoff data. Results are indicative and subject to actual seat availability and counseling procedures.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {/* Desktop/Tablet: Table + System Guide as before */}
+                                            <div className="hidden sm:block">
+                                                <div className="overflow-x-auto">
+                                                    <table className="min-w-full bg-white rounded-lg shadow-lg text-[#8851F7]">
+                                                        <thead className="sticky top-0 z-10 bg-[#B889F9] border-b border-[#8851F7]">
+                                                            <tr>
+                                                                <th className="px-4 py-2 text-left whitespace-nowrap font-semibold text-black">Institute Code</th>
+                                                                <th className="px-4 py-2 text-left whitespace-nowrap font-semibold text-black">College Name</th>
+                                                                <th className="px-4 py-2 text-left whitespace-nowrap font-semibold text-black">Branch</th>
+                                                                <th className="px-4 py-2 text-left whitespace-nowrap font-semibold text-black">Fee</th>
+                                                                <th className="px-4 py-2 text-left whitespace-nowrap font-semibold text-black">Closing Rank</th>
+                                                                <th className="px-4 py-2 text-left whitespace-nowrap font-semibold text-black">Affiliation</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {paginatedResults.map((row, idx) => (
+                                                                <tr key={idx} className={`border-b last:border-b-0 transition ${idx % 2 === 0 ? 'bg-white' : 'bg-[#F3E8FF]'} hover:bg-[#B889F9]/40`}>
+                                                                    <td className="px-4 py-2 font-mono text-base font-extrabold text-black">{row["Institute Code"]}</td>
+                                                                    <td className="px-4 py-2 font-semibold text-black">{row["Institute Name"]}</td>
+                                                                    <td className="px-4 py-2 text-black">{row["Branch Name"]}</td>
+                                                                    <td className="px-4 py-2 text-black">{row["Fee"]}</td>
+                                                                    <td className="px-4 py-2"><span className="inline-block bg-[#B889F9] text-black rounded px-2 py-1 text-xs font-bold">{row["Closing Rank"]}</span></td>
+                                                                    <td className="px-4 py-2 text-black">{row["Affiliation"]}</td>
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                    </table>
+                                                    {/* Pagination Controls */}
+                                                    <div className="flex flex-wrap justify-center items-center mt-4 gap-2 w-full">
+                                                        <button
+                                                            className="px-3 py-1 rounded bg-[#B889F9] text-black font-bold disabled:opacity-50"
+                                                            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                                                            disabled={currentPage === 1}
+                                                        >
+                                                            Previous
+                                                        </button>
+                                                        {[...Array(totalPages)].map((_, idx) => (
+                                                            <button
+                                                                key={idx}
+                                                                className={`px-3 py-1 rounded ${currentPage === idx + 1 ? 'bg-[#8851F7] text-white' : 'bg-white text-black'} font-bold`}
+                                                                onClick={() => setCurrentPage(idx + 1)}
+                                                            >
+                                                                {idx + 1}
+                                                            </button>
+                                                        ))}
+                                                        <button
+                                                            className="px-3 py-1 rounded bg-[#B889F9] text-black font-bold disabled:opacity-50"
+                                                            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                                                            disabled={currentPage === totalPages}
+                                                        >
+                                                            Next
+                                                        </button>
+                                                    </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                                </div>
+                            </div>
+
+                            {/* Error Message */}
+                            {error && (
+                                <div className="mb-8 p-4 sm:p-6 bg-red-900/20 border border-red-500/30 rounded-lg text-xs sm:text-base">
+                                    <div className="flex items-center">
+                                        <div className="flex-shrink-0">
+                                            <svg className="w-6 h-6 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                                                <path
+                                                    fillRule="evenodd"
+                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                                    clipRule="evenodd"
+                                                />
+                                            </svg>
+                                        </div>
+                                        <div className="ml-4">
+                                            <pre className="text-red-300 font-medium whitespace-pre-wrap text-sm">{error}</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* System Guide for desktop/tablet */}
+                            <div className="hidden sm:block">
+                                <div className="bg-white rounded-xl shadow-xl p-8 mb-8">
+                                    <h2 className="text-2xl font-bold mb-4 text-black">System Guide</h2>
+                                <div className="grid md:grid-cols-2 gap-8">
+                                    <div className="space-y-6">
+                                        <div className="flex items-start space-x-4">
+                                                <div className="flex-shrink-0 w-8 h-8 bg-[#8851F7] text-white rounded-full flex items-center justify-center font-bold text-sm">1</div>
+                                            <div>
+                                                <h4 className="text-white font-semibold text-lg mb-2">Input Requirements</h4>
+                                                    <p className="text-black">Enter your EAPCET rank (e.g., 1000), select your preferred branch, category, and gender. All marked fields are mandatory for accurate predictions.</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-start space-x-4">
+                                                <div className="flex-shrink-0 w-8 h-8 bg-[#8851F7] text-white rounded-full flex items-center justify-center font-bold text-sm">2</div>
+                                            <div>
+                                                <h4 className="text-white font-semibold text-lg mb-2">Location Filtering</h4>
+                                                    <p className="text-black">Optionally filter results by specific locations. Leave blank to view all eligible institutions across Telangana.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-6">
+                                        <div className="flex items-start space-x-4">
+                                                <div className="flex-shrink-0 w-8 h-8 bg-[#8851F7] text-white rounded-full flex items-center justify-center font-bold text-sm">3</div>
+                                            <div>
+                                                <h4 className="text-white font-semibold text-lg mb-2">Results Analysis</h4>
+                                                    <p className="text-black">Review eligible colleges sorted by closing rank. Compare fees, locations, and institute codes to make informed decisions.</p>
+                                            </div>
+                                        </div>
+                                        <div className="bg-yellow-400/10 border border-yellow-400/30 p-6 rounded-lg">
+                                            <h4 className="text-yellow-400 font-bold text-lg mb-2">Data Accuracy</h4>
+                                                <p className="text-black text-sm">Predictions are based on official Telangana EAPCET 2024 first phase cutoff data. Results are indicative and subject to actual seat availability and counseling procedures.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Professional Footer */}
+                            <footer className="text-center mt-8 sm:mt-12">
+                                <div className="max-w-2xl mx-auto py-6 px-4 rounded-xl bg-white shadow-lg border border-[#8851F7]">
+                                    <h2 className="text-2xl font-bold text-[#8851F7] mb-2">EAPCET College Predictor 2025</h2>
+                                    <p className="text-sm sm:text-base text-black mb-2 flex items-center justify-center gap-2">
+                                        Made with <span className="text-red-500 text-lg">❤️</span> using AI by Revanth Adepu
+                                    </p>
+                                    <div className="flex justify-center gap-4 mt-2">
+                                        <a href="https://instagram.com/revanth.inn" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-[#8851F7] hover:text-[#B889F9] font-semibold">
+                                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zm4.25 3.25a5.25 5.25 0 1 1 0 10.5a5.25 5.25 0 0 1 0-10.5zm0 1.5a3.75 3.75 0 1 0 0 7.5a3.75 3.75 0 0 0 0-7.5zm5.25.75a1 1 0 1 1-2 0a1 1 0 0 1 2 0z"/></svg>
+                                            revanth.inn
+                                        </a>
+                                        <a href="https://www.linkedin.com/in/revanthinn/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-[#8851F7] hover:text-[#B889F9] font-semibold">
+                                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75s1.75.79 1.75 1.75s-.78 1.75-1.75 1.75zm15.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47c-1.5 0-1.73 1.17-1.73 2.38v4.59h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54c3.04 0 3.6 2 3.6 4.59v4.72z"/></svg>
+                                            revanth.inn
+                                        </a>
+                                </div>
+                            </div>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+            );
         }
-        
-        function showLoading(show) {
-            const btn = document.getElementById('predictBtn');
-            const btnText = document.getElementById('predictBtnText');
-            const spinner = document.getElementById('loadingSpinner');
-            
-            if (show) {
-                btn.disabled = true;
-                btn.classList.add('opacity-75', 'cursor-not-allowed');
-                btnText.classList.add('hidden');
-                spinner.classList.remove('hidden');
-            } else {
-                btn.disabled = false;
-                btn.classList.remove('opacity-75', 'cursor-not-allowed');
-                btnText.classList.remove('hidden');
-                spinner.classList.add('hidden');
-            }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+<!-- Popup Overlay (Homepage only) -->
+<div id="userPopupOverlay" style="display:none;">
+  <form autocomplete="off" id="userForm" class="glassmorphism-popup">
+    <h2 class="popup-title">Enter Details</h2>
+    <div class="form-subheading">Please enter your details to continue</div>
+    <div class="userForm-flex-row">
+      <div class="form-floating mb-3">
+        <input autocomplete="off" class="form-control" id="name" placeholder=" " required type="text"/>
+        <label for="name">Student Name</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input autocomplete="off" class="form-control" id="number" placeholder=" " required type="text"/>
+        <label for="number">Phone Number</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input autocomplete="off" class="form-control" id="place" placeholder=" " required type="text"/>
+        <label for="place">Place</label>
+      </div>
+    </div>
+    <div class="userForm-checkbox-row mb-3">
+      <input id="termsCheck" required type="checkbox"/>
+      <label for="termsCheck" style="margin:0; color:#FFD700; font-size:0.98rem;">I agree to the <a href="#" style="color:#FFD700;text-decoration:underline;">Terms and Conditions</a></label>
+    </div>
+    <button class="submit-btn" disabled id="userFormSubmitBtn" type="submit">Submit</button>
+  </form>
+  <!-- Animated background -->
+  <div class="popup-animated-bg"></div>
+</div>
+<script>
+        // 🔧 Firebase config (Replace with your own)
+        const firebaseConfig = {
+          apiKey: "AIzaSyC-rdXiAoJg16m7CC_lIWmKpJVsqIOZVHk",
+          authDomain: "eapcet-college-predictor-63205.firebaseapp.com",
+          projectId: "eapcet-college-predictor-63205",
+          storageBucket: "eapcet-college-predictor-63205.firebasestorage.app",
+          messagingSenderId: "5162796699",
+          appId: "1:5162796699:web:d1ec081a51fdfebdc5283e",
+          measurementId: "G-M09SXDF0XL"
+        };
+      
+        // ✅ Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+      
+        // Show/hide overlay logic
+        function showMainContent() {
+          document.getElementById('userPopupOverlay').style.display = 'none';
+          // If you want to show your main content, add code here
         }
-        
-        function showError(elementId, message) {
-            const errorElement = document.getElementById(elementId);
-            errorElement.textContent = message;
-            errorElement.classList.remove('hidden');
-            
-            setTimeout(() => {
-                errorElement.classList.add('hidden');
-            }, 5000);
+        function showPopup() {
+          document.getElementById('userPopupOverlay').style.display = 'flex';
+          // If you want to hide your main content, add code here
         }
-        
-        function scrollToPredictor() {
-            document.getElementById('predictor').scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
+      
+        // On Form Submit
+        document.getElementById('userForm').addEventListener('submit', async function(e) {
+          e.preventDefault();
+      
+          const name = document.getElementById('name').value;
+          const number = document.getElementById('number').value;
+          const place = document.getElementById('place').value;
+      
+          const user = { name, number, place };
+      
+          // 👉 Store in localStorage
+          localStorage.setItem('college_user', JSON.stringify(user));
+      
+          // 👉 Save to Firestore (using number as unique ID)
+          try {
+            await db.collection('users').doc(number).set(user);
+            // Removed success popup, just show main content
+            showMainContent();
+          } catch (err) {
+            // Optionally, you can use alert or keep the error popup
+            new Popup({
+              id: "error-popup",
+              title: "Error",
+              content: "Error saving data: " + err.message,
+              showImmediately: true
             });
-        }
-        
-        function scrollToFeatures() {
-            document.getElementById('features').scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-        
-        function scrollToResults() {
-            setTimeout(() => {
-                document.getElementById('results').scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }, 100);
-        }
-        
-        // Add smooth scrolling for all anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+          }
         });
-        
-        // Form validation on input
-        document.getElementById('rank').addEventListener('input', function() {
-            const rankError = document.getElementById('rankError');
-            if (this.value && (isNaN(this.value) || parseInt(this.value) <= 0)) {
-                rankError.classList.remove('hidden');
-            } else {
-                rankError.classList.add('hidden');
-            }
-        });
+      
+        // On page load, check localStorage
+        window.onload = () => {
+          const userData = JSON.parse(localStorage.getItem('college_user'));
+          if (userData) {
+            showMainContent();
+          } else {
+            showPopup();
+          }
+
+          // Enable/disable submit button based on checkbox
+          const termsCheck = document.getElementById('termsCheck');
+          const submitBtn = document.getElementById('userFormSubmitBtn');
+          if (termsCheck && submitBtn) {
+            termsCheck.addEventListener('change', function() {
+              submitBtn.disabled = !this.checked;
+            });
+            submitBtn.disabled = !termsCheck.checked;
+          }
+        };
     </script>
 </body>
 </html>
